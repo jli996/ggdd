@@ -3,7 +3,7 @@
 import { parseArgs } from 'node:util';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { cBold, cCyan, cDim, cRed } from '../lib/colors.ts';
+import { cBold, cCyan, cDim, cGreen, cRed } from '../lib/colors.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -19,7 +19,13 @@ const COMMANDS = {
   'gen-negative': 'Generate negative-demo via Anthropic (requires ANTHROPIC_API_KEY)',
   'test-grader': 'Validate calibration: grader must pass demo, fail negative-demo',
   grade: 'Run a guide grader against its demo (or TARGET_FILE)',
-  'warm-cache': '[Plan 4] Pre-populate Unity Library cache for a base-app',
+  'warm-cache': 'Pre-populate Unity Library cache for a base-app',
+  eval: 'Run the evaluation suite (or specific guide ids via --tasks)',
+  run: 'Run an ad-hoc agent test against a base-app (--template <baseApp> --prompt "...")',
+  backfill: 'Recompute metrics for historical run artifacts',
+  upload: 'Upload results to GCS (requires GGDD_GCS_BUCKET)',
+  dashboard: '[Plan 5] Start the eval-view dashboard locally',
+  deploy: '[Plan 5] Publish eval-view to GitHub Pages',
   apiref: '[Placeholder] Unity API/version compat lookup',
   'setup-completion': 'Install shell auto-completion',
 } as const;
@@ -106,7 +112,63 @@ async function main() {
       await generateNegative(opts.guide);
       break;
     }
-    case 'warm-cache':
+    case 'eval': {
+      const tasksFlag = (values as any).tasks as string | undefined;
+      const tasks = tasksFlag ? tasksFlag.split(',').map(s => s.trim()).filter(Boolean)
+                              : positionals.slice(1).filter(p => p !== 'suite');
+      const { evaluate } = await import('../harness/evaluate.ts');
+      await evaluate({ configPath: (values as any).config, tasks });
+      break;
+    }
+    case 'run': {
+      const tmpl = positionals[1];
+      const prompt = positionals.slice(2).join(' ');
+      if (!tmpl || !prompt) { console.error(cRed('ggdd-dev run <baseApp> "<prompt>"')); process.exit(1); }
+      const { runSuite } = await import('../harness/run_suite.ts');
+      const { resolveSuiteConfig } = await import('../harness/config.ts');
+      const suiteConfig = await resolveSuiteConfig({ configPath: (values as any).config });
+      // Synthesize a one-off task: pick the first guide for that base-app.
+      const { collectSuiteTasks } = await import('../harness/lib/collection.ts');
+      const all = collectSuiteTasks();
+      const t = all.find(x => x.baseApp === tmpl);
+      if (!t) { console.error(cRed(`No guide uses baseApp=${tmpl}`)); process.exit(1); }
+      const synthetic = { ...t, taskMd: prompt };
+      // ad-hoc: replace tasks at suite level
+      (global as any).__GGDD_ADHOC_TASK = synthetic;
+      await runSuite({ suiteConfig, tasks: [t.guideId] });
+      break;
+    }
+    case 'warm-cache': {
+      const baseApp = opts.guide ?? positionals[1];
+      if (!baseApp) { console.error(cRed('ggdd-dev warm-cache <baseApp>')); process.exit(1); }
+      const { unityCompile, resolveUnityEditor } = await import('../harness/lib/unity-runner.ts');
+      const editor = resolveUnityEditor();
+      if (!editor) {
+        console.error(cRed('Unity 6 Editor not found. Set UNITY_EDITOR_PATH or install via Unity Hub.'));
+        process.exit(1);
+      }
+      const baseSrc = path.join(ROOT, 'harness', 'base_apps', baseApp);
+      const fs = await import('node:fs');
+      if (!fs.existsSync(baseSrc)) { console.error(cRed(`Base app missing: ${baseSrc}`)); process.exit(1); }
+      console.log(cBold(`warm-cache ${baseApp} (first-time imports may take 60-90s)…`));
+      const r = await unityCompile(baseSrc, { verbose: !!values.verbose, timeoutMs: 600_000 });
+      console.log(r.ok ? `${cGreen('✓')} warmed` : `${cRed('✗')} compile errors:\n${r.errors.map(e => `  ${e.message}`).join('\n')}`);
+      process.exit(r.ok ? 0 : 1);
+    }
+    case 'backfill': {
+      const { backfill } = await import('../harness/backfill.ts');
+      await backfill();
+      break;
+    }
+    case 'upload': {
+      const { uploadSuite } = await import('../harness/upload_suite.ts');
+      await uploadSuite();
+      break;
+    }
+    case 'dashboard':
+    case 'deploy':
+      console.log(cDim(`[${cmd}] is a Plan 5 placeholder.`));
+      process.exit(0);
     case 'apiref':
       console.log(cDim(`[${cmd}] is a placeholder for Plan 4+. Unity 6 only / no-op in Plan 3.`));
       process.exit(0);
