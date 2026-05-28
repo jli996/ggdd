@@ -165,10 +165,22 @@ async function main() {
       await uploadSuite();
       break;
     }
-    case 'dashboard':
-    case 'deploy':
-      console.log(cDim(`[${cmd}] is a Plan 5 placeholder.`));
-      process.exit(0);
+    case 'dashboard': {
+      const { spawn } = await import('node:child_process');
+      const ev = path.join(ROOT, 'eval-view');
+      console.log(cBold(`Starting eval-view dev server (${ev})…`));
+      const child = spawn('npm', ['start'], { cwd: ev, stdio: 'inherit' });
+      child.on('close', code => process.exit(code ?? 0));
+      break;
+    }
+    case 'deploy': {
+      const { spawn } = await import('node:child_process');
+      const ev = path.join(ROOT, 'eval-view');
+      console.log(cBold(`Building + deploying eval-view to GitHub Pages (${ev})…`));
+      const child = spawn('npm', ['run', 'deploy-pages'], { cwd: ev, stdio: 'inherit' });
+      child.on('close', code => process.exit(code ?? 0));
+      break;
+    }
     case 'apiref':
       console.log(cDim(`[${cmd}] is a placeholder for Plan 4+. Unity 6 only / no-op in Plan 3.`));
       process.exit(0);
