@@ -3,7 +3,7 @@
 ## Top-level layout
 
 - `serving/` — npm-publishable package (`name: ggdd`). Runtime CLI + MCP server + vendored MiniLM. Zero network calls, zero API keys, runs offline. Source of truth for what end users get.
-- `guides/` — guide content. 24 guides across 8 categories: `unity-engine` (3), `unity-performance` (3), `game-design-action` (3), `game-design-deckbuilder` (3), `game-design-shooter-survival` (3), `game-design-shooter-extraction` (3), `game-design-shooter-competitive` (3), `game-design-shooter-singleplayer` (3). Plans 7b/7c/7d will add platformer, strategy, soulslike, AI perception, and Unity engine additions (cinemachine, UI Toolkit, Netcode).
+- `guides/` — guide content. 39 guides across 13 categories. Plan 7c (strategy: rts-classic, moba, mmorts) and Plan 7d (Unity engine: cinemachine, UI Toolkit, Netcode) will round out to 48 guides across 16 categories.
 - `lib/` — shared library code used by both root tooling (`ggdd-dev`, Plan 3) and `guides/` author-time tooling.
 - `bin/` — root dev CLI `ggdd-dev` (Plan 3). Commands: `audit`, `dev`, `dev-all`, `gen-grader`, `gen-negative`, `test-grader`, `grade`, `warm-cache` (placeholder), `apiref` (placeholder), `setup-completion`. Not published.
 - `harness/` — eval infrastructure (Plan 4): Unity batch-mode runner, agent runners (claude-code primary; codex/gemini/jetski stubs), suite orchestration, metrics, reporting. Plan 4 ships `empty-unity6` base-app via LFS; the brawler/deckbuilder skeletons are placeholders that fall back to `empty-unity6`.
@@ -25,6 +25,7 @@ PR CI runs the preflight workflow (`.github/workflows/preflight.yml`): `npm inst
 - **npm publish**: not automated. Run `cd serving && npm publish --access public` when ready. Requires npm credentials.
 
 - **Shooter base-app skeleton**: `harness/base_apps/shooter-skeleton/` is not yet created. All 12 shooter design guides currently point at `empty-unity6` as their baseApp. Build out a shooter skeleton (basic FPS player + weapon + enemy) when these guides need genuine project context.
+- **Platformer / soulslike / AI base-app skeletons**: all Plan 7b guides currently point at `empty-unity6`. Build out genre-specific skeletons when guides need real project context.
 
 ## See also
 
