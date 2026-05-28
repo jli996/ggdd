@@ -1,3 +1,4 @@
 packages:
   - "serving"
   - "harness"
+  - "eval-view"
