@@ -15,18 +15,14 @@ PR CI runs the preflight workflow (`.github/workflows/preflight.yml`): `npm inst
 
 ## Active TODOs
 
-- Telemetry sink (`ClearcutLogger`) is a no-op stub; decide before public launch whether to wire to an opt-in endpoint or strip the code entirely. See spec §8.3 item 1.
-- **pnpm install OOMs on this workspace** (pnpm 10.30.3 + Node 24.4.1 + TF.js dep tree → V8 "invalid array length" allocation failure). Workaround: `npm install --ignore-scripts` at root and inside `serving/`. CI uses Node 22 LTS + npm to avoid this. Revisit if pnpm upstream fixes the bug or if the dep tree shrinks (e.g., dropping `@huggingface/transformers` if we can find an alternative tokenizer).
-- **Static-only graders.** All Plan 2 graders use static C# analysis only. Unity batch-mode helpers (`unityCompile`, `unityRunEditModeTests`) become available in Plan 4 when the harness lands; some guides may then be revised to `gradeMode: static+unity`.
-- **Game-design grader rigor.** Per spec §8.3 item 5, design-pattern graders (hit-stop, knockback, run pacing, rarity, relic readability) are inherently fuzzier than perf graders. Initial graders will under-detect; iterate based on real eval data once Plan 4 ships.
-- **LLM generators need ANTHROPIC_API_KEY** to run. Add it to `.env` for `ggdd-dev gen-grader` / `gen-negative`. The dry-run path is exercised in tests so no API quota is consumed by CI.
-- **`dev` is currently a thin wrapper around `test-grader`.** The full author loop (auto-generate negative/grader if missing, then run guided agent test) lands when Plan 4's harness ships the agent runners.
-- **Stub agent runners.** `codex-cli`, `gemini-cli`, `jetski-cli` throw `NotImplementedError`. Wire them up when needed by adding the relevant CLI invocation logic per `claude-code-agent.ts`.
-- **Skeleton base-apps.** `brawler-skeleton` and `deckbuilder-skeleton` are README placeholders. Build them out as real Unity 6 projects (scene + scripts + URP) before the action/deckbuilder guides need genuine project context.
-- **Unity batch helpers in test-fixture.** `unityCompile`/`unityRunEditModeTests` exist in `harness/lib/unity-runner.ts` but no grader calls them yet. Wire them into `guides/test-fixture.ts` when a guide upgrades to `gradeMode: static+unity`.
-- **Real GCS upload.** `harness/upload_suite.ts` is a no-op stub. Wire it up in Plan 5 when the dashboard needs remote artifacts.
-- **Per-assertion drilldown** depends on `RunResult.grader.perAssertion` being populated by the harness. The current `run_suite.ts` writes an empty array; populate it in Plan 6 by parsing `node:test` TAP output or the structured run output of each individual assertion.
-- **GitHub Pages deployment** requires the `gh-pages` branch to exist + GitHub Pages enabled in the repo settings (Source = `gh-pages` branch). `ggdd-dev deploy` pushes; you must enable Pages manually in the repo settings.
+- **Real Unity-batch grader integration**: `guides/test-fixture.ts` exposes `unityCompile` / `unityRunEditModeTests` (via `harness/lib/unity-runner.ts`) but no grader actually calls them yet. The `gc-free-update-loop` guide is marked `gradeMode: static+unity` so the first guide to wire it up is unambiguous. Land when there's a meaningful behavioral check that static analysis can't cover.
+- **Brawler / deckbuilder skeleton base-apps**: `harness/base_apps/{brawler,deckbuilder}-skeleton/` are README placeholders. Build out as real Unity projects when their guides need genre-specific scene/script context.
+- **Stub agent runners**: codex-cli, gemini-cli, jetski-cli throw `NotImplementedError`. Wire up when needed (claude-code is real and primary).
+- **pnpm install OOMs on this dep tree** — use npm. See `project_ggdd_pnpm_oom` memory.
+- **`ANTHROPIC_API_KEY`** required for `ggdd-dev gen-grader` / `gen-negative` at runtime; tests use dry-run mode and consume no quota.
+- **`GGDD_GCS_BUCKET`** optional — without it `ggdd-dev upload` is a no-op. Set to enable GCS upload (currently a placeholder; wire the actual upload when the dashboard moves to remote artifacts).
+- **GitHub Pages enable step**: `ggdd-dev deploy` pushes to the `gh-pages` branch; you must enable Pages source = `gh-pages` in the repo settings the first time.
+- **npm publish**: not automated. Run `cd serving && npm publish --access public` when ready. Requires npm credentials.
 
 ## See also
 
