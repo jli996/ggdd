@@ -2,7 +2,7 @@
 id: netcode-for-gameobjects-basics
 category: unity-engine
 title: Netcode for GameObjects basics (Unity 6 multiplayer)
-description: Use Unity's official Netcode for GameObjects package (NGO) for multiplayer: NetworkBehaviour + NetworkVariable + ServerRpc/ClientRpc. Don't write custom socket code.
+description: "Use Unity's official Netcode for GameObjects package (NGO) for multiplayer: NetworkBehaviour + NetworkVariable + ServerRpc/ClientRpc. Don't write custom socket code."
 useCases:
   - "Unity 6 multiplayer with Netcode for GameObjects"
   - "NetworkBehaviour vs MonoBehaviour"
