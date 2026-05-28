@@ -110,6 +110,53 @@ async function main() {
       }
     }
     if (hasError) process.exit(1);
+  } else if (command === 'install') {
+    const startTime = Date.now();
+    const tool = process.env.GGDD_SKILLS_SPAWN_OVERRIDE ?? 'npx';
+    const installArgs = process.env.GGDD_SKILLS_SPAWN_OVERRIDE
+      ? ['skills', 'add', 'lijinglue/ggdd', ...(values.choose ? [] : ['--skill', 'ggdd'])]
+      : ['-y', 'skills', 'add', 'lijinglue/ggdd', ...(values.choose ? [] : ['--skill', 'ggdd'])];
+    const { spawnSync } = await import('node:child_process');
+    const result = spawnSync(tool, installArgs, { stdio: ['inherit', 'pipe', 'pipe'], shell: process.platform === 'win32' });
+    if (result.stdout) process.stdout.write(result.stdout);
+    if (result.stderr) process.stderr.write(result.stderr);
+    const success = !result.error && result.status === 0;
+    await getLogger().logToolCommand(
+      Date.now() - startTime,
+      success,
+      values.choose ? CommandType.INSTALL_CHOOSE : CommandType.INSTALL,
+    );
+    if (result.error) {
+      console.error('Install failed:', result.error);
+      process.exit(1);
+    }
+    process.exit(result.status ?? 0);
+  } else if (command === 'uninstall') {
+    const startTime = Date.now();
+    const tool = process.env.GGDD_SKILLS_SPAWN_OVERRIDE ?? 'npx';
+    const uninstallArgs = process.env.GGDD_SKILLS_SPAWN_OVERRIDE
+      ? ['skills', 'remove', 'ggdd']
+      : ['skills', 'remove', 'ggdd'];
+    const { spawnSync } = await import('node:child_process');
+    const result = spawnSync(tool, uninstallArgs, { stdio: ['inherit', 'pipe', 'pipe'], shell: process.platform === 'win32' });
+    if (result.stdout) process.stdout.write(result.stdout);
+    if (result.stderr) process.stderr.write(result.stderr);
+    const success = !result.error && result.status === 0;
+    await getLogger().logToolCommand(Date.now() - startTime, success, CommandType.UNINSTALL);
+    process.exit(result.status ?? (result.error ? 1 : 0));
+  } else if (command === 'update') {
+    const startTime = Date.now();
+    const tool = process.env.GGDD_SKILLS_SPAWN_OVERRIDE ?? 'npx';
+    const updateArgs = process.env.GGDD_SKILLS_SPAWN_OVERRIDE
+      ? ['skills', 'update', 'ggdd']
+      : ['-y', 'skills', 'update', 'ggdd'];
+    const { spawnSync } = await import('node:child_process');
+    const result = spawnSync(tool, updateArgs, { stdio: ['inherit', 'pipe', 'pipe'], shell: process.platform === 'win32' });
+    if (result.stdout) process.stdout.write(result.stdout);
+    if (result.stderr) process.stderr.write(result.stderr);
+    const success = !result.error && result.status === 0;
+    await getLogger().logToolCommand(Date.now() - startTime, success, CommandType.UPDATE);
+    process.exit(result.status ?? (result.error ? 1 : 0));
   } else {
     console.error(`Unknown command: ${command}`);
     printUsage();

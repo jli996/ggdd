@@ -60,3 +60,51 @@ test('retrieve with no ids exits 1', () => {
   assert.equal(r.status, 1);
   assert.match(r.stderr, /No IDs provided/);
 });
+
+import * as fs from 'node:fs';
+import * as os from 'node:os';
+
+function runWithSkillsStub(args: string[], stubScript: string) {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'ggdd-cli-'));
+  const stub = path.join(tmp, 'fake-npx');
+  fs.writeFileSync(stub, stubScript, { mode: 0o755 });
+  return spawnSync('node', ['--experimental-strip-types', CLI, ...args], {
+    encoding: 'utf8',
+    env: { ...process.env, GGDD_SKILLS_SPAWN_OVERRIDE: stub },
+  });
+}
+
+test('install shells out to the spawn override', () => {
+  const stub = `#!/usr/bin/env bash\necho "INVOKED: $@"\nexit 0\n`;
+  const r = runWithSkillsStub(['install'], stub);
+  assert.equal(r.status, 0);
+  assert.match(r.stdout, /INVOKED:.*skills add/);
+});
+
+test('install --choose passes interactive mode', () => {
+  const stub = `#!/usr/bin/env bash\necho "INVOKED: $@"\nexit 0\n`;
+  const r = runWithSkillsStub(['install', '--choose'], stub);
+  assert.equal(r.status, 0);
+  // No --skill ggdd suffix when --choose is set
+  assert.doesNotMatch(r.stdout, /--skill ggdd/);
+});
+
+test('install propagates non-zero exit from skills tool', () => {
+  const stub = `#!/usr/bin/env bash\necho "fail" >&2\nexit 5\n`;
+  const r = runWithSkillsStub(['install'], stub);
+  assert.equal(r.status, 5);
+});
+
+test('uninstall shells out', () => {
+  const stub = `#!/usr/bin/env bash\necho "INVOKED: $@"\nexit 0\n`;
+  const r = runWithSkillsStub(['uninstall'], stub);
+  assert.equal(r.status, 0);
+  assert.match(r.stdout, /INVOKED:.*skills remove/);
+});
+
+test('update shells out', () => {
+  const stub = `#!/usr/bin/env bash\necho "INVOKED: $@"\nexit 0\n`;
+  const r = runWithSkillsStub(['update'], stub);
+  assert.equal(r.status, 0);
+  assert.match(r.stdout, /INVOKED:.*skills update/);
+});
