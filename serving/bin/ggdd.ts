@@ -139,8 +139,12 @@ async function main() {
 
 function getCLISkillVersion(): string | null {
   try {
-    const versionPath = path.join(import.meta.dirname, '..', 'skills-cli', 'template', 'skill-version.txt');
-    return fs.readFileSync(versionPath, 'utf8').trim();
+    // Bundled layout: skill-version.txt lives next to ggdd.js in build/.
+    const bundledPath = path.join(import.meta.dirname, 'skill-version.txt');
+    if (fs.existsSync(bundledPath)) return fs.readFileSync(bundledPath, 'utf8').trim();
+    // Source layout: serving/skills-cli/template/skill-version.txt.
+    const sourcePath = path.join(import.meta.dirname, '..', 'skills-cli', 'template', 'skill-version.txt');
+    return fs.readFileSync(sourcePath, 'utf8').trim();
   } catch {
     return null;
   }
