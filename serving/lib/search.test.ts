@@ -36,3 +36,19 @@ test('search limits results to top 10 by default', async () => {
   const results = await searchUseCases('anything');
   assert.ok(results.length <= 10);
 });
+
+test('search filters out results below the default similarity threshold', async () => {
+  const results = await searchUseCases('photosynthesis chlorophyll plant biology');
+  assert.equal(results.length, 0, `expected no results for irrelevant query, got ${JSON.stringify(results)}`);
+});
+
+test('search accepts an explicit minSimilarity below 0 to include negatives', async () => {
+  const results = await searchUseCases('photosynthesis chlorophyll plant biology', 10, -1);
+  assert.ok(results.length >= 1, 'expected at least one result with no threshold');
+});
+
+test('search default minSimilarity does not filter relevant queries', async () => {
+  const results = await searchUseCases('keyboard input in Unity');
+  assert.ok(results.length >= 1);
+  assert.equal(results[0].id, 'new-input-system-basics');
+});

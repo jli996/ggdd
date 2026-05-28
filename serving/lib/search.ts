@@ -26,7 +26,11 @@ function loadCorpusVectors(): Float32Array[] {
 
 const embedder = new TfjsEmbedder();
 
-export async function searchUseCases(query: string, limit = 10): Promise<SearchResult[]> {
+export async function searchUseCases(
+  query: string,
+  limit = 10,
+  minSimilarity = 0.1,
+): Promise<SearchResult[]> {
   if (USE_CASES.length === 0) return [];
   const vectors = loadCorpusVectors();
   const queryVec = await embedder.embed(query);
@@ -41,10 +45,10 @@ export async function searchUseCases(query: string, limit = 10): Promise<SearchR
 
   scored.sort((a, b) => b.similarity - a.similarity);
 
-  // Dedupe by guide id, keeping the highest-scoring use-case row per guide.
   const seen = new Set<string>();
   const deduped: SearchResult[] = [];
   for (const r of scored) {
+    if (r.similarity < minSimilarity) break;
     if (seen.has(r.id)) continue;
     seen.add(r.id);
     deduped.push(r);
