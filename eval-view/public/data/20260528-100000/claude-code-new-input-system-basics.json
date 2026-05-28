@@ -1,0 +1,19 @@
+{
+  "guideId": "new-input-system-basics",
+  "agent": "claude-code",
+  "modelVersion": "claude-sonnet-4-6",
+  "grader": {
+    "pass": 6, "fail": 0, "total": 6, "rate": 1.0,
+    "perAssertion": [
+      { "name": "imports UnityEngine.InputSystem", "passed": true },
+      { "name": "declares serialized InputActionAsset or InputAction", "passed": true },
+      { "name": "reads via ReadValue<...>() or action.performed", "passed": true },
+      { "name": "no legacy Input.GetAxis / GetKey / GetButton", "passed": true },
+      { "name": "no System.Linq import", "passed": true },
+      { "name": "declares PlayerController : MonoBehaviour", "passed": true }
+    ]
+  },
+  "agentDurationMs": 38200,
+  "totalDurationMs": 39100,
+  "exitCode": 0
+}
