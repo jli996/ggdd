@@ -29,7 +29,7 @@ const embedder = new TfjsEmbedder();
 export async function searchUseCases(
   query: string,
   limit = 10,
-  minSimilarity = 0.1,
+  minSimilarity = 0.25,
 ): Promise<SearchResult[]> {
   if (USE_CASES.length === 0) return [];
   const vectors = loadCorpusVectors();
