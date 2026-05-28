@@ -4,6 +4,9 @@
   "description": "Game Guidance for Development Done-right — Unity 6 guidance for coding agents",
   "type": "module",
   "private": true,
+  "bin": {
+    "ggdd-dev": "bin/ggdd-dev.ts"
+  },
   "scripts": {
     "test": "pnpm -r --parallel test",
     "build": "pnpm -r run build",
@@ -11,12 +14,16 @@
     "lint": "oxlint --ignore-path .oxlintignore",
     "preflight": "pnpm build && pnpm typecheck && pnpm lint && pnpm test",
     "build:mcp": "pnpm --filter serving build",
-    "build:megaskill": "pnpm --filter serving build:megaskill"
+    "build:megaskill": "pnpm --filter serving build:megaskill",
+    "dev": "node --experimental-strip-types bin/ggdd-dev.ts"
   },
   "packageManager": "pnpm@10.30.3",
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.99.0",
     "@types/node": "^25.6.0",
+    "@types/omelette": "^0.4.5",
     "gray-matter": "^4.0.3",
+    "omelette": "^0.4.17",
     "oxlint": "^1.55.0",
     "tree-sitter": "^0.21.1",
     "tree-sitter-c-sharp": "^0.21.3",
