@@ -26,11 +26,13 @@ jobs:
           cd serving
           npm install --ignore-scripts --no-audit --no-fund
       - name: Run root tests
-        run: node --experimental-strip-types --test 'lib/**/*.test.ts'
+        run: node --experimental-strip-types --test 'lib/**/*.test.ts' 'guides/**/*.test.ts'
       - name: Run serving tests
         run: |
           cd serving
           node --experimental-strip-types --test --test-timeout 60000 'lib/**/*.test.ts' 'bin/**/*.test.ts' 'mcp-server/**/*.test.ts' 'scripts/**/*.test.ts' 'skills-cli/**/*.test.ts'
+      - name: Calibrate all graders (dev-all --test-grader)
+        run: node --experimental-strip-types bin/ggdd-dev.ts dev-all --test-grader
       - name: Verify serving package builds (esbuild bundler)
         run: |
           cd serving
