@@ -7,7 +7,7 @@
   "scripts": {
     "test": "pnpm -r --parallel test",
     "build": "pnpm -r run build",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && pnpm -r --parallel typecheck",
     "lint": "oxlint --ignore-path .oxlintignore",
     "preflight": "pnpm build && pnpm typecheck && pnpm lint && pnpm test",
     "build:mcp": "pnpm --filter serving build",
