@@ -28,7 +28,7 @@ test('no new List<...> / new ...[] inside FixedUpdate', () => {
 });
 
 test('uses NonAlloc Physics overload (or no allocating Overlap call)', () => {
-  if (hasPattern(src, /\bPhysics2?\.Overlap/)) {
+  if (hasPattern(src, /\bPhysics(?:2D)?\.Overlap/)) {
     assert.ok(hasPattern(src, /OverlapCircleNonAlloc|OverlapBoxNonAlloc|OverlapSphereNonAlloc/),
       'Used Overlap* but not the NonAlloc variant');
   }
