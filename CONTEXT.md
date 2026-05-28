@@ -3,7 +3,7 @@
 ## Top-level layout
 
 - `serving/` — npm-publishable package (`name: ggdd`). Runtime CLI + MCP server + vendored MiniLM. Zero network calls, zero API keys, runs offline. Source of truth for what end users get.
-- `guides/` — guide content. 39 guides across 13 categories. Plan 7c (strategy: rts-classic, moba, mmorts) and Plan 7d (Unity engine: cinemachine, UI Toolkit, Netcode) will round out to 48 guides across 16 categories.
+- `guides/` — guide content. 48 guides across 16 categories. Plan 7d (Unity engine: cinemachine, UI Toolkit, Netcode) will add 3 more guides as the final v2 addition.
 - `lib/` — shared library code used by both root tooling (`ggdd-dev`, Plan 3) and `guides/` author-time tooling.
 - `bin/` — root dev CLI `ggdd-dev` (Plan 3). Commands: `audit`, `dev`, `dev-all`, `gen-grader`, `gen-negative`, `test-grader`, `grade`, `warm-cache` (placeholder), `apiref` (placeholder), `setup-completion`. Not published.
 - `harness/` — eval infrastructure (Plan 4): Unity batch-mode runner, agent runners (claude-code primary; codex/gemini/jetski stubs), suite orchestration, metrics, reporting. Plan 4 ships `empty-unity6` base-app via LFS; the brawler/deckbuilder skeletons are placeholders that fall back to `empty-unity6`.
