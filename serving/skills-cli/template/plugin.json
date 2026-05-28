@@ -1,12 +1,12 @@
 {
   "name": "ggdd",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Game Guidance for Development Done-right — curated Unity 6 guidance for coding agents",
   "author": {
     "name": "lijinglue",
     "email": "ljlxdev@gmail.com"
   },
-  "homepage": "https://github.com/lijinglue/ggdd",
+  "homepage": "https://github.com/jli996/ggdd",
   "skills": [
     {
       "name": "ggdd",

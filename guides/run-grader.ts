@@ -2,11 +2,18 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { spawn } from 'node:child_process';
 
+export interface PerAssertion {
+  name: string;
+  passed: boolean;
+  message?: string;
+}
+
 export interface GraderResult {
   pass: number;
   fail: number;
   stdout: string;
   stderr: string;
+  perAssertion: PerAssertion[];
 }
 
 export interface RunGraderOptions {
@@ -42,10 +49,35 @@ export async function runGrader(guideDir: string, opts: RunGraderOptions = {}): 
 
     child.on('close', () => {
       clearTimeout(t);
-      // node:test summary lines: Node 18-22 uses `# pass N`, Node 23+ uses `ℹ pass N`.
-      const pass = parseInt(stdout.match(/^(?:#|ℹ) pass (\d+)/m)?.[1] ?? '0', 10);
-      const fail = parseInt(stdout.match(/^(?:#|ℹ) fail (\d+)/m)?.[1] ?? '0', 10);
-      resolve({ pass, fail, stdout, stderr });
+      // node:test summary lines: Node 22 uses `# pass N`, Node 24+ uses `ℹ pass N`.
+      const passMatch = stdout.match(/^(?:#|ℹ) pass (\d+)/m);
+      const failMatch = stdout.match(/^(?:#|ℹ) fail (\d+)/m);
+      const pass = parseInt(passMatch?.[1] ?? '0', 10);
+      const fail = parseInt(failMatch?.[1] ?? '0', 10);
+
+      // Per-assertion: lines like `✔ assertion name (12ms)` or `✖ assertion name`.
+      const perAssertion: PerAssertion[] = [];
+      const lines = stdout.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const m = line.match(/^(\s*)(✔|✖|ok|not ok)\s+(?:\d+\s+)?(.+?)(?:\s+\(\d+(?:\.\d+)?ms\))?\s*$/);
+        if (!m) continue;
+        const passed = m[2] === '✔' || m[2] === 'ok';
+        const name = m[3].trim();
+        // Find an error message if this is a failure (look ahead a few lines).
+        let message: string | undefined;
+        if (!passed) {
+          for (let j = i + 1; j < Math.min(i + 8, lines.length); j++) {
+            const errLine = lines[j].trim();
+            if (errLine.startsWith('AssertionError') || errLine.startsWith('Error') || errLine.startsWith('message:')) {
+              message = errLine; break;
+            }
+          }
+        }
+        perAssertion.push({ name, passed, message });
+      }
+
+      resolve({ pass, fail, stdout, stderr, perAssertion });
     });
     child.on('error', reject);
   });

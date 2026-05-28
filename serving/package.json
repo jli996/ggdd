@@ -1,24 +1,23 @@
 {
   "name": "ggdd",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Game Guidance for Development Done-right — Unity 6 guidance CLI for coding agents",
   "type": "module",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22"
+  },
   "bin": {
-    "ggdd": "bin/ggdd.ts"
+    "ggdd": "build/ggdd.js"
   },
   "files": [
-    "bin",
-    "lib",
-    "mcp-server",
-    "megaskill",
-    "skills-cli/template",
     "build",
     "README.md"
   ],
   "scripts": {
     "build": "node --experimental-strip-types scripts/build-guides.ts && node --experimental-strip-types skills-cli/build-dist.ts",
     "build:megaskill": "node --experimental-strip-types scripts/build-megaskill.ts",
+    "prepublishOnly": "node --experimental-strip-types scripts/build-guides.ts && node --experimental-strip-types skills-cli/build-dist.ts",
     "test": "node --test --experimental-strip-types --test-reporter=${TEST_REPORTER:-spec} '**/*.test.ts'",
     "typecheck": "tsc --noEmit",
     "start": "node --experimental-strip-types mcp-server/index.ts"
