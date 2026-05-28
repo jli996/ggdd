@@ -1,0 +1,13 @@
+{
+  "name": "harness",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --experimental-strip-types --test-timeout 60000 '**/*.test.ts'",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xmldom/xmldom": "^0.8.10"
+  }
+}
