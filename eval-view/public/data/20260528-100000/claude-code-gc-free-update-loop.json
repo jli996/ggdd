@@ -1,0 +1,19 @@
+{
+  "guideId": "gc-free-update-loop",
+  "agent": "claude-code",
+  "modelVersion": "claude-sonnet-4-6",
+  "grader": {
+    "pass": 4, "fail": 2, "total": 6, "rate": 0.667,
+    "perAssertion": [
+      { "name": "does not import System.Linq", "passed": true },
+      { "name": "GetComponent cached", "passed": true },
+      { "name": "no allocations in FixedUpdate", "passed": false, "message": "found `new List<Transform>()`" },
+      { "name": "uses NonAlloc Physics overload", "passed": false, "message": "OverlapCircleAll, expected OverlapCircleNonAlloc" },
+      { "name": "no Debug.Log in FixedUpdate", "passed": true },
+      { "name": "compiles", "passed": true }
+    ]
+  },
+  "agentDurationMs": 41100,
+  "totalDurationMs": 42500,
+  "exitCode": 0
+}

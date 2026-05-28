@@ -1,0 +1,11 @@
+{
+  "runs": 2,
+  "aggregatePassRate": 0.83,
+  "byCategory": {
+    "unity-engine": { "runs": 1, "passRate": 1.0 },
+    "unity-performance": { "runs": 1, "passRate": 0.67 }
+  },
+  "byAgent": {
+    "claude-code": { "runs": 2, "passRate": 0.83 }
+  }
+}

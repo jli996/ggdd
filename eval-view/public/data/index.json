@@ -1,0 +1,12 @@
+{
+  "stamps": [
+    {
+      "stamp": "20260528-100000",
+      "files": [
+        "summary.json",
+        "claude-code-new-input-system-basics.json",
+        "claude-code-gc-free-update-loop.json"
+      ]
+    }
+  ]
+}
