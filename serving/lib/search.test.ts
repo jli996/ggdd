@@ -38,12 +38,12 @@ test('search limits results to top 10 by default', async () => {
 });
 
 test('search filters out results below the default similarity threshold', async () => {
-  const results = await searchUseCases('photosynthesis chlorophyll plant biology');
+  const results = await searchUseCases('mitochondrial dna cytoplasm ribosome translation');
   assert.equal(results.length, 0, `expected no results for irrelevant query, got ${JSON.stringify(results)}`);
 });
 
 test('search accepts an explicit minSimilarity below 0 to include negatives', async () => {
-  const results = await searchUseCases('photosynthesis chlorophyll plant biology', 10, -1);
+  const results = await searchUseCases('mitochondrial dna cytoplasm ribosome translation', 10, -1);
   assert.ok(results.length >= 1, 'expected at least one result with no threshold');
 });
 
