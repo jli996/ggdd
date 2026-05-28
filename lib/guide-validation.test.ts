@@ -75,6 +75,24 @@ test('validateFrontmatter accepts the new v2 categories', () => {
   }
 });
 
+test('validateFrontmatter accepts the new Plan 8 casual genre categories', () => {
+  for (const cat of [
+    'game-design-casual-match-3',
+    'game-design-casual-merge-2',
+    'game-design-casual-color-sort',
+    'game-design-casual-lane-switch',
+    'game-design-casual-clicker-idle',
+    'game-design-casual-hyper-casual',
+    'game-design-casual-endless-runner',
+  ] as const) {
+    const valid = validateFrontmatter({
+      id: 'x', category: cat, title: 'T', description: 'D', useCases: ['u'],
+      gradeMode: 'static', unityVersion: '6000.0', baseApp: 'empty-unity6',
+    });
+    assert.equal(valid.category, cat);
+  }
+});
+
 test('validateFrontmatter accepts optional relatedGuides + appliesTo', () => {
   const valid = validateFrontmatter({
     id: 'x',
