@@ -13,6 +13,9 @@ relatedGuides:
   - run-pacing-3-act-structure
 appliesTo:
   - "any deckbuilder with multiple rarity tiers"
+gradeMode: static
+unityVersion: "6000.0"
+baseApp: empty-unity6
 ---
 
 # Card rarity as effect breadth, not raw power

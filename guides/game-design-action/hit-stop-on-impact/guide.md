@@ -13,6 +13,9 @@ relatedGuides:
   - gc-free-update-loop
 appliesTo:
   - "any action game with player-controlled melee/projectile combat"
+gradeMode: static
+unityVersion: "6000.0"
+baseApp: empty-unity6
 ---
 
 # Hit-stop on impact

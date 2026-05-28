@@ -9,6 +9,9 @@ useCases:
   - "Slay the Spire relic design"
   - "limit number of effects per relic"
   - "tooltip clarity for permanent items"
+gradeMode: static
+unityVersion: "6000.0"
+baseApp: empty-unity6
 ---
 
 # Keep stacked relic effects legible

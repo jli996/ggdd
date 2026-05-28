@@ -12,6 +12,9 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any single-run roguelite or deckbuilder with a fixed-length progression"
+gradeMode: static
+unityVersion: "6000.0"
+baseApp: empty-unity6
 ---
 
 # Three-act run pacing

@@ -12,6 +12,9 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any action / platformer / brawler with attack or movement animations that lock input"
+gradeMode: static
+unityVersion: "6000.0"
+baseApp: empty-unity6
 ---
 
 # Input buffering
