@@ -7,7 +7,7 @@
 - `lib/` — shared library code used by both root tooling (`ggdd-dev`, Plan 3) and `guides/` author-time tooling.
 - `bin/` — root dev CLI `ggdd-dev` (Plan 3). Commands: `audit`, `dev`, `dev-all`, `gen-grader`, `gen-negative`, `test-grader`, `grade`, `warm-cache` (placeholder), `apiref` (placeholder), `setup-completion`. Not published.
 - `harness/` — eval infrastructure (Plan 4): Unity batch-mode runner, agent runners (claude-code primary; codex/gemini/jetski stubs), suite orchestration, metrics, reporting. Plan 4 ships `empty-unity6` base-app via LFS; the brawler/deckbuilder skeletons are placeholders that fall back to `empty-unity6`.
-- `eval-view/` — dashboard SPA (Plan 5).
+- `eval-view/` — React/Vite dashboard SPA (Plan 5). Reads run results from `harness/runs/` (locally) or from `eval-view/public/data/` (deployed snapshot). `ggdd-dev dashboard` starts the dev server; `ggdd-dev deploy` builds and pushes to GitHub Pages via `gh-pages`.
 
 ## Workflow
 
@@ -25,6 +25,8 @@ PR CI runs the preflight workflow (`.github/workflows/preflight.yml`): `npm inst
 - **Skeleton base-apps.** `brawler-skeleton` and `deckbuilder-skeleton` are README placeholders. Build them out as real Unity 6 projects (scene + scripts + URP) before the action/deckbuilder guides need genuine project context.
 - **Unity batch helpers in test-fixture.** `unityCompile`/`unityRunEditModeTests` exist in `harness/lib/unity-runner.ts` but no grader calls them yet. Wire them into `guides/test-fixture.ts` when a guide upgrades to `gradeMode: static+unity`.
 - **Real GCS upload.** `harness/upload_suite.ts` is a no-op stub. Wire it up in Plan 5 when the dashboard needs remote artifacts.
+- **Per-assertion drilldown** depends on `RunResult.grader.perAssertion` being populated by the harness. The current `run_suite.ts` writes an empty array; populate it in Plan 6 by parsing `node:test` TAP output or the structured run output of each individual assertion.
+- **GitHub Pages deployment** requires the `gh-pages` branch to exist + GitHub Pages enabled in the repo settings (Source = `gh-pages` branch). `ggdd-dev deploy` pushes; you must enable Pages manually in the repo settings.
 
 ## See also
 
