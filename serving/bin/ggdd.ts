@@ -3,8 +3,6 @@
 import { parseArgs } from 'node:util';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { ClearcutLogger } from '../skills-cli/telemetry/ClearcutLogger.ts';
-import { CommandType } from '../skills-cli/telemetry/types.ts';
 import { getVersion } from '../lib/version.ts';
 import { retrieveUseCase, RetrieveError } from '../lib/retrieve.ts';
 import { listCatalog } from '../lib/practices.ts';
@@ -55,28 +53,17 @@ async function main() {
     process.exit(values.help ? 0 : 1);
   }
 
-  let loggerInstance: ClearcutLogger | undefined;
-  const getLogger = () => loggerInstance ??= new ClearcutLogger({ skillVersion });
-
   const command = positionals[0];
   const arg = positionals.slice(1).join(' ');
 
   if (command === 'search') {
     if (!arg) {
-      await getLogger().logSearchResult(0, false, []);
       console.error('No search query provided.');
       process.exit(1);
     }
-    const startTime = Date.now();
     try {
       const { searchUseCases } = await import('../lib/search.ts');
       const results = await searchUseCases(arg);
-      const latencyMs = Date.now() - startTime;
-      await getLogger().logSearchResult(
-        latencyMs,
-        true,
-        results.map(r => ({ guide_id: r.id, similarity: Number(r.similarity) })),
-      );
       if (results.length === 0) {
         console.log('[]');
       } else {
@@ -84,7 +71,6 @@ async function main() {
         console.log('[' + lines.join(',\n') + ']');
       }
     } catch (error) {
-      await getLogger().logSearchResult(Date.now() - startTime, false, []);
       console.error('Search failed:', error);
       process.exit(1);
     }
@@ -94,28 +80,23 @@ async function main() {
   } else if (command === 'retrieve') {
     const ids = arg ? arg.split(',').map(s => s.trim()).filter(Boolean) : [];
     if (ids.length === 0) {
-      await getLogger().logRetrieveResult(0, false, '');
       console.error('No IDs provided for retrieve.');
       process.exit(1);
     }
     let hasError = false;
     for (const id of ids) {
-      const startTime = Date.now();
       try {
         const guide = await retrieveUseCase(id);
         console.log(`\n--- Guide for ${id} ---`);
         console.log(guide);
-        await getLogger().logRetrieveResult(Date.now() - startTime, true, id);
       } catch (error) {
         hasError = true;
         if (error instanceof RetrieveError) console.error(`Retrieve failed for ${id}: ${error.message}`);
         else console.error(`Retrieve failed for ${id}:`, error);
-        await getLogger().logRetrieveResult(Date.now() - startTime, false, id);
       }
     }
     if (hasError) process.exit(1);
   } else if (command === 'install') {
-    const startTime = Date.now();
     const tool = process.env.GGDD_SKILLS_SPAWN_OVERRIDE ?? 'npx';
     const installArgs = process.env.GGDD_SKILLS_SPAWN_OVERRIDE
       ? ['skills', 'add', 'lijinglue/ggdd', ...(values.choose ? [] : ['--skill', 'ggdd'])]
@@ -124,19 +105,12 @@ async function main() {
     const result = spawnSync(tool, installArgs, { stdio: ['inherit', 'pipe', 'pipe'], shell: process.platform === 'win32' });
     if (result.stdout) process.stdout.write(result.stdout);
     if (result.stderr) process.stderr.write(result.stderr);
-    const success = !result.error && result.status === 0;
-    await getLogger().logToolCommand(
-      Date.now() - startTime,
-      success,
-      values.choose ? CommandType.INSTALL_CHOOSE : CommandType.INSTALL,
-    );
     if (result.error) {
       console.error('Install failed:', result.error);
       process.exit(1);
     }
     process.exit(result.status ?? 0);
   } else if (command === 'uninstall') {
-    const startTime = Date.now();
     const tool = process.env.GGDD_SKILLS_SPAWN_OVERRIDE ?? 'npx';
     const uninstallArgs = process.env.GGDD_SKILLS_SPAWN_OVERRIDE
       ? ['skills', 'remove', 'ggdd']
@@ -145,11 +119,8 @@ async function main() {
     const result = spawnSync(tool, uninstallArgs, { stdio: ['inherit', 'pipe', 'pipe'], shell: process.platform === 'win32' });
     if (result.stdout) process.stdout.write(result.stdout);
     if (result.stderr) process.stderr.write(result.stderr);
-    const success = !result.error && result.status === 0;
-    await getLogger().logToolCommand(Date.now() - startTime, success, CommandType.UNINSTALL);
     process.exit(result.status ?? (result.error ? 1 : 0));
   } else if (command === 'update') {
-    const startTime = Date.now();
     const tool = process.env.GGDD_SKILLS_SPAWN_OVERRIDE ?? 'npx';
     const updateArgs = process.env.GGDD_SKILLS_SPAWN_OVERRIDE
       ? ['skills', 'update', 'ggdd']
@@ -158,8 +129,6 @@ async function main() {
     const result = spawnSync(tool, updateArgs, { stdio: ['inherit', 'pipe', 'pipe'], shell: process.platform === 'win32' });
     if (result.stdout) process.stdout.write(result.stdout);
     if (result.stderr) process.stderr.write(result.stderr);
-    const success = !result.error && result.status === 0;
-    await getLogger().logToolCommand(Date.now() - startTime, success, CommandType.UPDATE);
     process.exit(result.status ?? (result.error ? 1 : 0));
   } else {
     console.error(`Unknown command: ${command}`);
