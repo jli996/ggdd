@@ -18,7 +18,8 @@
     "@types/node": "^25.6.0",
     "gray-matter": "^4.0.3",
     "oxlint": "^1.55.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "zod": "^4.4.3"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
