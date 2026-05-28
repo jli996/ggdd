@@ -1,0 +1,30 @@
+node_modules/
+**/node_modules/
+.env
+.env.local
+*.log
+.DS_Store
+
+# Build outputs
+**/build/
+**/dist/
+
+# Unity (for future base-apps in Plan 4)
+**/Library/
+**/Temp/
+**/Logs/
+**/Obj/
+**/obj/
+**/Build/
+**/Builds/
+**/UserSettings/
+**/MemoryCaptures/
+**/*.csproj
+**/*.sln
+**/*.suo
+**/*.user
+**/*.unityproj
+**/library-cache/
+
+# Harness outputs (Plan 4)
+harness/runs/
