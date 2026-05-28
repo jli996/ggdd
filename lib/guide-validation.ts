@@ -8,6 +8,21 @@ export const GuideFrontmatterSchema = z.object({
     'unity-performance',
     'game-design-action',
     'game-design-deckbuilder',
+    // v2 (Plan 7a — shooter subgenres)
+    'game-design-shooter-survival',
+    'game-design-shooter-extraction',
+    'game-design-shooter-competitive',
+    'game-design-shooter-singleplayer',
+    // v2 (Plan 7b — platformer + soulslike + AI)
+    'game-design-platformer-precision',
+    'game-design-platformer-momentum',
+    'game-design-platformer-3d-collectathon',
+    'game-design-soulslike',
+    'game-design-ai-perception',
+    // v2 (Plan 7c — strategy)
+    'game-design-rts-classic',
+    'game-design-moba',
+    'game-design-mmorts',
   ]),
   title: z.string().min(1),
   description: z.string().min(1),
