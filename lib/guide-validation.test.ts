@@ -52,6 +52,29 @@ test('validateFrontmatter rejects invalid gradeMode', () => {
   }), GuideValidationError);
 });
 
+test('validateFrontmatter accepts the new v2 categories', () => {
+  for (const cat of [
+    'game-design-shooter-survival',
+    'game-design-shooter-extraction',
+    'game-design-shooter-competitive',
+    'game-design-shooter-singleplayer',
+    'game-design-platformer-precision',
+    'game-design-platformer-momentum',
+    'game-design-platformer-3d-collectathon',
+    'game-design-soulslike',
+    'game-design-ai-perception',
+    'game-design-rts-classic',
+    'game-design-moba',
+    'game-design-mmorts',
+  ] as const) {
+    const valid = validateFrontmatter({
+      id: 'x', category: cat, title: 'T', description: 'D', useCases: ['u'],
+      gradeMode: 'static', unityVersion: '6000.0', baseApp: 'empty-unity6',
+    });
+    assert.equal(valid.category, cat);
+  }
+});
+
 test('validateFrontmatter accepts optional relatedGuides + appliesTo', () => {
   const valid = validateFrontmatter({
     id: 'x',
