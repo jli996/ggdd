@@ -108,3 +108,22 @@ test('update shells out', () => {
   assert.equal(r.status, 0);
   assert.match(r.stdout, /INVOKED:.*skills update/);
 });
+
+test('--skill-version with a fresh version emits no warning', () => {
+  const r = run(['--skill-version', '2026_05_27_v1', 'list']);
+  assert.equal(r.status, 0);
+  assert.equal(r.stderr.trim(), '');
+});
+
+test('--skill-version older than 5 days emits a warning', () => {
+  // Use a date guaranteed to be >5 days behind today.
+  const r = run(['--skill-version', '2020_01_01_v1', 'list']);
+  assert.equal(r.status, 0);
+  assert.match(r.stderr, /new SKILL\.md is available/);
+});
+
+test('--skill-version older than 60 days emits the escalated warning', () => {
+  const r = run(['--skill-version', '2020_01_01_v1', 'list']);
+  assert.equal(r.status, 0);
+  assert.match(r.stderr, /PROBLEM DETECTED/);
+});
