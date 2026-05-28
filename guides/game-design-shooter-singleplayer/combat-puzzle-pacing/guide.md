@@ -2,7 +2,7 @@
 id: combat-puzzle-pacing
 category: game-design-shooter-singleplayer
 title: Combat puzzle pacing (encounter as resource-management puzzle)
-description: In a singleplayer FPS, each combat encounter is a small puzzle: limited ammo, varied enemy types, environment hazards. The "puzzle" is which tools to use where.
+description: "In a singleplayer FPS, each combat encounter is a small puzzle: limited ammo, varied enemy types, environment hazards. The puzzle is which tools to use where."
 useCases:
   - "design FPS combat encounters"
   - "DOOM 2016 push-forward combat"
