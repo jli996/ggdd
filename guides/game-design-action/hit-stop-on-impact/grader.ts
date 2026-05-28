@@ -26,7 +26,11 @@ test('uses WaitForSecondsRealtime (not plain WaitForSeconds)', () => {
 });
 
 test('uses a sensible hit-stop duration (between 0.03 and 0.15 seconds)', () => {
-  const matches = src.match(/\b0\.(0[3-9]|1[0-5]?)\d*f?\b/g);
-  assert.ok(matches && matches.length >= 1,
-    `expected a duration literal between 0.03 and 0.15, found none in: ${src.match(/\b\d+\.\d+f?\b/g)?.join(', ')}`);
+  // Find every float literal in the source and check at least one is in [0.03, 0.15].
+  const numerics = src.match(/\b\d+\.\d+f?\b/g) ?? [];
+  const ok = numerics.some(m => {
+    const v = parseFloat(m.replace(/f$/, ''));
+    return v >= 0.03 && v <= 0.15;
+  });
+  assert.ok(ok, `expected a duration literal in [0.03, 0.15], saw: ${numerics.join(', ')}`);
 });
