@@ -1,7 +1,7 @@
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { USE_CASES } from './use-cases.gen.ts';
-import { readEmbeddingsBlob } from '../scripts/build-guides.ts';
+import { readEmbeddingsBlob } from './corpus-io.ts';
 import { TfjsEmbedder } from './tfjs-embedder.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
