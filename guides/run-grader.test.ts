@@ -21,3 +21,10 @@ test('runGrader fails when pointed at the negative-demo via TARGET_FILE', async 
 test('runGrader throws if the guide dir has no grader.ts', async () => {
   await assert.rejects(() => runGrader('/tmp/does-not-exist-xyz'));
 });
+
+test('runGrader returns perAssertion array with named entries', async () => {
+  const res = await runGrader(path.join(rootDir, 'guides', 'unity-engine', 'new-input-system-basics'));
+  assert.ok(Array.isArray(res.perAssertion));
+  assert.ok(res.perAssertion.length >= 1, `expected perAssertion entries, got ${res.perAssertion.length}`);
+  assert.ok(res.perAssertion.every(a => typeof a.name === 'string' && typeof a.passed === 'boolean'));
+});

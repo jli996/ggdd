@@ -105,7 +105,7 @@ async function runSingle(agent: AgentRunner, task: SuiteTask, cfg: SuiteConfig, 
     grader: {
       pass: grader.pass, fail: grader.fail, total,
       rate: total > 0 ? grader.pass / total : 0,
-      perAssertion: [],
+      perAssertion: grader.perAssertion,
     },
     agentDurationMs,
     totalDurationMs: Date.now() - startTotal,
