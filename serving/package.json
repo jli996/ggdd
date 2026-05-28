@@ -1,0 +1,40 @@
+{
+  "name": "ggdd",
+  "version": "0.0.1",
+  "description": "Game Guidance for Development Done-right — Unity 6 guidance CLI for coding agents",
+  "type": "module",
+  "license": "Apache-2.0",
+  "bin": {
+    "ggdd": "bin/ggdd.ts"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "mcp-server",
+    "megaskill",
+    "skills-cli/template",
+    "build",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node --experimental-strip-types scripts/build-guides.ts && node --experimental-strip-types skills-cli/build-dist.ts",
+    "build:megaskill": "node --experimental-strip-types scripts/build-megaskill.ts",
+    "test": "node --test --experimental-strip-types --test-reporter=${TEST_REPORTER:-spec} '**/*.test.ts'",
+    "typecheck": "tsc --noEmit",
+    "start": "node --experimental-strip-types mcp-server/index.ts"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^3.8.1",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@tensorflow/tfjs-backend-cpu": "^4.22.0",
+    "@tensorflow/tfjs-converter": "^4.22.0",
+    "@tensorflow/tfjs-core": "^4.22.0",
+    "gray-matter": "^4.0.3",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "esbuild": "^0.27.4",
+    "typescript": "^5.9.3"
+  }
+}

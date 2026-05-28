@@ -1,0 +1,30 @@
+{
+  "name": "ggdd-workspace",
+  "version": "0.0.0",
+  "description": "Game Guidance for Development Done-right — Unity 6 guidance for coding agents",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "pnpm -r --parallel test",
+    "build": "pnpm -r run build",
+    "typecheck": "tsc --noEmit && pnpm -r --parallel typecheck",
+    "lint": "oxlint --ignore-path .oxlintignore",
+    "preflight": "pnpm build && pnpm typecheck && pnpm lint && pnpm test",
+    "build:mcp": "pnpm --filter serving build",
+    "build:megaskill": "pnpm --filter serving build:megaskill"
+  },
+  "packageManager": "pnpm@10.30.3",
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "gray-matter": "^4.0.3",
+    "oxlint": "^1.55.0",
+    "typescript": "^5.9.3",
+    "zod": "^4.4.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "onnxruntime-node"
+    ]
+  }
+}

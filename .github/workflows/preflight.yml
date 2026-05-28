@@ -1,0 +1,39 @@
+name: Preflight
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Pull LFS files
+        run: git lfs pull
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install root devDependencies (npm, bypasses pnpm OOM)
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Install serving package (npm, bypasses pnpm OOM)
+        run: |
+          cd serving
+          npm install --ignore-scripts --no-audit --no-fund
+      - name: Run root tests
+        run: node --experimental-strip-types --test 'lib/**/*.test.ts'
+      - name: Run serving tests
+        run: |
+          cd serving
+          node --experimental-strip-types --test --test-timeout 60000 'lib/**/*.test.ts' 'bin/**/*.test.ts' 'mcp-server/**/*.test.ts' 'scripts/**/*.test.ts' 'skills-cli/**/*.test.ts'
+      - name: Verify serving package builds (esbuild bundler)
+        run: |
+          cd serving
+          node --experimental-strip-types scripts/build-guides.ts
+          node --experimental-strip-types skills-cli/build-dist.ts
+          test -f build/ggdd.js && test -f build/mcp-server.js
