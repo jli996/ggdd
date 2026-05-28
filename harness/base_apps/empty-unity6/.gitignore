@@ -1,0 +1,13 @@
+# Unity ignores (these are local-only; the workspace-level .gitignore also covers them)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Ll]ogs/
+[Uu]serSettings/
+[Mm]emoryCaptures/
+*.csproj
+*.sln
+*.suo
+*.user
+*.unityproj
