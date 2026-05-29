@@ -40,6 +40,7 @@ export const GuideFrontmatterSchema = z.object({
   gradeMode: z.enum(['static', 'unity', 'static+unity']),
   unityVersion: z.string().min(1),
   baseApp: z.string().min(1),
+  tags: z.array(z.string().min(1).regex(/^[a-z0-9-]+$/, 'tags must be lowercase kebab-case')).min(3, 'guides require at least 3 tags').max(8, 'guides should not exceed 8 tags'),
 });
 
 export type GuideFrontmatter = z.infer<typeof GuideFrontmatterSchema>;

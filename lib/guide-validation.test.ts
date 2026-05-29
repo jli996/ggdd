@@ -12,6 +12,10 @@ useCases:
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6
+tags:
+  - modern-api
+  - performance
+  - unity-engine
 ---
 
 Body content here.
@@ -49,6 +53,7 @@ test('validateFrontmatter rejects invalid gradeMode', () => {
     gradeMode: 'not-a-mode',
     unityVersion: '6000.0',
     baseApp: 'empty-unity6',
+    tags: ['modern-api', 'performance', 'unity-engine'],
   }), GuideValidationError);
 });
 
@@ -70,6 +75,7 @@ test('validateFrontmatter accepts the new v2 categories', () => {
     const valid = validateFrontmatter({
       id: 'x', category: cat, title: 'T', description: 'D', useCases: ['u'],
       gradeMode: 'static', unityVersion: '6000.0', baseApp: 'empty-unity6',
+      tags: ['modern-api', 'performance', 'unity-engine'],
     });
     assert.equal(valid.category, cat);
   }
@@ -88,6 +94,7 @@ test('validateFrontmatter accepts the new Plan 8 casual genre categories', () =>
     const valid = validateFrontmatter({
       id: 'x', category: cat, title: 'T', description: 'D', useCases: ['u'],
       gradeMode: 'static', unityVersion: '6000.0', baseApp: 'empty-unity6',
+      tags: ['casual', 'mobile', 'puzzle'],
     });
     assert.equal(valid.category, cat);
   }
@@ -105,6 +112,32 @@ test('validateFrontmatter accepts optional relatedGuides + appliesTo', () => {
     baseApp: 'empty-unity6',
     relatedGuides: ['object-pooling-basics'],
     appliesTo: ['MonoBehaviour scripts'],
+    tags: ['modern-api', 'forgiving-input', 'unity-engine'],
   });
   assert.deepEqual(valid.relatedGuides, ['object-pooling-basics']);
+});
+
+test('validateFrontmatter accepts a tags array', () => {
+  const valid = validateFrontmatter({
+    id: 'x', category: 'unity-engine', title: 'T', description: 'D', useCases: ['u'],
+    gradeMode: 'static', unityVersion: '6000.0', baseApp: 'empty-unity6',
+    tags: ['modern-api', 'forgiving-input', 'unity-engine'],
+  });
+  assert.deepEqual(valid.tags, ['modern-api', 'forgiving-input', 'unity-engine']);
+});
+
+test('validateFrontmatter rejects fewer than 3 tags', () => {
+  assert.throws(() => validateFrontmatter({
+    id: 'x', category: 'unity-engine', title: 'T', description: 'D', useCases: ['u'],
+    gradeMode: 'static', unityVersion: '6000.0', baseApp: 'empty-unity6',
+    tags: ['only-one', 'two-tags'],
+  }), GuideValidationError);
+});
+
+test('validateFrontmatter rejects invalid tag name format', () => {
+  assert.throws(() => validateFrontmatter({
+    id: 'x', category: 'unity-engine', title: 'T', description: 'D', useCases: ['u'],
+    gradeMode: 'static', unityVersion: '6000.0', baseApp: 'empty-unity6',
+    tags: ['Camel-Case', 'okay-tag', 'another-tag'],
+  }), GuideValidationError);
 });
