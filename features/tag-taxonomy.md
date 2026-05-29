@@ -8,7 +8,7 @@ Tags must come from this canonical list. New tags require an entry here first.
 
 ---
 
-## 1. Economic / progression (8)
+## 1. Economic / Progression (7)
 
 ### `economy`
 Resource flow design: how players earn, spend, and balance currencies. Use when a guide tunes generation rates, spend rates, conversion rules, or sink/source equilibrium. Common in survival, MMO, MOBA, idle.
@@ -36,23 +36,18 @@ Player advancement that opens new content or capability (levels, world unlocks, 
 **Cross-refs:** `meta-progression`, `narrative-beat`.
 
 ### `meta-progression`
-Persistent advancement that carries across runs/sessions/games. Use for unlocks bought with run currency, character XP that survives death, prestige bonuses. The key word is *meta* (above one run).
+Persistent advancement that carries across runs/sessions/games. Use for unlocks bought with run currency, character XP that survives death, prestige loops (reset-to-gain-meta-currency in idle / clicker games), or post-prestige boost math.
 **Avoid for:** in-run advancement — use `progression`.
-**Cross-refs:** `prestige-loop`, `roguelike-run`.
+**Cross-refs:** `roguelike-run`, `exponential-scaling` (when prestige math compounds).
 
 ### `power-curve`
 How a character/build/team grows in raw power over time. Use when guides design intentional power spikes, escalation, or de-escalation. Common in MOBA (lane→late), action RPG, soulslike, full-loot shooter.
 **Avoid for:** stat balancing alone — use the more specific economic tag.
 **Cross-refs:** `pacing`, `tier-progression`.
 
-### `prestige-loop`
-"Reset to gain meta-currency" pattern. Specific to idle / clicker / certain RPGs. Use when guides design reset triggers, meta-currency conversion, post-prestige boost math.
-**Avoid for:** New Game+ that's purely cosmetic — that's `meta-progression`.
-**Cross-refs:** `meta-progression`, `exponential-scaling`.
-
 ---
 
-## 2. Game feel & control (6)
+## 2. Game Feel & Control (6)
 
 ### `game-feel`
 Tactile combat / movement quality. Use when the guide tunes responsiveness, weight, juice, screen-shake, hit-stop, or anything in the "feel" bucket. Action / brawler / platformer territory.
@@ -86,7 +81,7 @@ Visible cues that telegraph an upcoming action (enemy wind-ups, attack chargeups
 
 ---
 
-## 3. Player experience (8)
+## 3. Player Experience (8)
 
 ### `risk-vs-reward`
 Decisions where higher-payoff options carry higher failure cost. Use for guides about extraction zones, loot bias by danger, build-defining greed choices.
@@ -125,7 +120,7 @@ Friction-reduction patterns: anti-stuck mechanisms, hint systems, undo, sell-mec
 
 ---
 
-## 4. Multiplayer / persistence (5)
+## 4. Multiplayer / Persistence (5)
 
 ### `pvp`
 Player-versus-player design space — anything competitive between humans. Use for round-economy guides, draft systems, matchmaking, snowball caps, anti-griefing.
@@ -175,7 +170,7 @@ Algorithmically-generated content: maps, levels, encounters, loot drops. Use whe
 
 ---
 
-## 6. Genre / platform context (4)
+## 6. Genre / Platform Context (4)
 
 ### `mobile-first`
 Designed for mobile play patterns: short sessions, touch input, ad integration, energy gating. Use when the design only makes sense in mobile context.
@@ -196,7 +191,7 @@ Single-run structure with permadeath + meta-progression. Use for run-pacing guid
 
 ---
 
-## 7. Unity engine tech (4)
+## 7. Unity Engine Tech (4)
 
 ### `modern-api`
 Use of Unity 6's current / preferred API over a legacy alternative. Almost every unity-engine guide carries this. Use when the guide warns against a deprecated/legacy approach AND teaches the modern path.
@@ -218,40 +213,23 @@ Object pooling / reuse to avoid Instantiate/Destroy cost. Use for guides about `
 
 ## Taxonomy summary
 
-40 tags total across 7 groups. Each guide gets 2–4 tags.
+**39 tags** total across 7 groups. Each guide gets 2–4 tags.
 
 ### Quick-reference table
 
 | Group | Count | Tags |
 |---|---|---|
-| Economic / progression | 8 | economy, tier-progression, exponential-scaling, cap-and-decay, progression, meta-progression, power-curve, prestige-loop |
-| Game feel & control | 6 | game-feel, forgiving-input, instant-restart, combat, stamina-economy, telegraph-tells |
-| Player experience | 8 | risk-vs-reward, readability, accessibility, pacing, narrative-beat, variety, replayability, quality-of-life |
-| Multiplayer / persistence | 5 | pvp, coop, persistent-world, mmo, offline-progress |
+| Economic / Progression | 7 | economy, tier-progression, exponential-scaling, cap-and-decay, progression, meta-progression, power-curve |
+| Game Feel & Control | 6 | game-feel, forgiving-input, instant-restart, combat, stamina-economy, telegraph-tells |
+| Player Experience | 8 | risk-vs-reward, readability, accessibility, pacing, narrative-beat, variety, replayability, quality-of-life |
+| Multiplayer / Persistence | 5 | pvp, coop, persistent-world, mmo, offline-progress |
 | Mechanics | 5 | class-design, state-machine, ai-perception, rarity-tiers, procedural-content |
-| Genre / platform | 4 | mobile-first, one-tap, monetization, roguelike-run |
-| Unity engine tech | 4 | modern-api, performance, gc-free, pool-reuse |
-
-### Sample assignments (verification preview)
-
-| Guide | Proposed tags |
-|---|---|
-| `tier-progression-value-curves` (merge-2) | `tier-progression`, `exponential-scaling`, `economy` |
-| `cascade-chain-reactions` (match-3) | `replayability`, `mobile-first` — plus a new tag `combo-system` ⚠️ (NOT in taxonomy — flagged for decision) |
-| `stamina-economy` (soulslike) | `stamina-economy`, `risk-vs-reward`, `combat` |
-| `cone-of-vision-falloff` (ai-perception) | `ai-perception`, `state-machine` |
-| `gc-free-update-loop` (perf) | `performance`, `gc-free`, `modern-api` |
-| `persistent-world-session-join` (shooter-survival) | `persistent-world`, `pvp`, `quality-of-life` |
-| `three-phase-game-arc` (moba) | `pacing`, `power-curve`, `pvp` |
-| `one-tap-control-schemes` (hyper-casual) | `one-tap`, `accessibility`, `mobile-first` |
-| `weapon-pickup-as-narrative-beat` (shooter-sp) | `narrative-beat`, `progression`, `pacing` |
-| `loot-value-tiers-with-snowball-caps` (extraction) | `rarity-tiers`, `risk-vs-reward`, `cap-and-decay` |
+| Genre / Platform Context | 4 | mobile-first, one-tap, monetization, roguelike-run |
+| Unity Engine Tech | 4 | modern-api, performance, gc-free, pool-reuse |
 
 ### Tag-coverage check
 
-Some guides may not map cleanly into 2+ tags from this taxonomy. The sample preview flagged `combo-system` as missing — that gap is real (cascade-chain-reactions / special-tile-creation-thresholds both genuinely need it).
-
-If the gap-fill list grows past 5 missing tags during backfill, the taxonomy is too narrow — pause and re-curate. Otherwise add 1–3 tags inline.
+The full 72-guide assignment preview is in `tag-assignments-preview.md`. If gaps emerge during backfill (a guide really wants a tag not in this list), add the tag here FIRST with description + cross-refs, then assign it.
 
 ---
 
