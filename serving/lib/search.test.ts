@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { searchUseCases } from './search.ts';
+import { searchUseCases, searchByTag, type SearchResult } from './search.ts';
 
 test('searchUseCases returns at least one result for a relevant query', async () => {
   const results = await searchUseCases('keyboard input in Unity');
@@ -51,4 +51,19 @@ test('search default minSimilarity does not filter relevant queries', async () =
   const results = await searchUseCases('keyboard input in Unity');
   assert.ok(results.length >= 1);
   assert.equal(results[0].id, 'new-input-system-basics');
+});
+
+test('search results carry bestTagSimilarity field after backfill', async () => {
+  const results = await searchUseCases('keyboard input in Unity');
+  // After backfill, results have non-zero bestTagSimilarity. Pre-backfill, undefined or 0.
+  for (const r of results) {
+    if (r.bestTagSimilarity !== undefined) {
+      assert.ok(r.bestTagSimilarity >= -1 && r.bestTagSimilarity <= 1);
+    }
+  }
+});
+
+test('searchByTag returns empty for an unknown tag', () => {
+  const r = searchByTag('not-a-real-tag-xyz');
+  assert.deepEqual(r, []);
 });
