@@ -10,7 +10,7 @@ test('buildMegaskill walks guides and inlines bodies between markers', async () 
   const guidesDir = path.join(tmp, 'guides');
   fs.mkdirSync(path.join(guidesDir, 'unity-engine', 'g1'), { recursive: true });
   fs.writeFileSync(path.join(guidesDir, 'unity-engine', 'g1', 'guide.md'),
-    `---\nid: g1\ncategory: unity-engine\ntitle: G1\ndescription: D\nuseCases:\n  - "u"\ngradeMode: static\nunityVersion: "6000.0"\nbaseApp: empty-unity6\n---\n\nG1 body content.\n`);
+    `---\nid: g1\ncategory: unity-engine\ntitle: G1\ndescription: D\nuseCases:\n  - "u"\ngradeMode: static\nunityVersion: "6000.0"\nbaseApp: empty-unity6\ntags:\n  - unity-engine\n  - modern-api\n  - performance\n---\n\nG1 body content.\n`);
 
   const templatePath = path.join(tmp, 'template.md');
   fs.writeFileSync(templatePath, `HEADER\n<!-- GUIDES START -->\n<!-- GUIDES END -->\nFOOTER\n`);

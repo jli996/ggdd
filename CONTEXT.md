@@ -4,6 +4,7 @@
 
 - `serving/` — npm-publishable package (`name: ggdd`). Runtime CLI + MCP server + vendored MiniLM. Zero network calls, zero API keys, runs offline. Source of truth for what end users get.
 - `guides/` — guide content. 72 guides across 23 categories. v2 (Plans 7a-d) covered shooter/platformer/soulslike/AI-perception/strategy/Unity-engine; Plan 8 added 7 casual subgenres (match-3, merge-2, color-sort, lane-switch, clicker-idle, hyper-casual, endless-runner).
+- `features/` — shared cross-cutting docs. `tag-taxonomy.md` defines the 60-tag taxonomy (umbrellas + subgenres + cross-cutting). `tag-assignments.md` maps each guide to its tags.
 - `lib/` — shared library code used by both root tooling (`ggdd-dev`, Plan 3) and `guides/` author-time tooling.
 - `bin/` — root dev CLI `ggdd-dev` (Plan 3). Commands: `audit`, `dev`, `dev-all`, `gen-grader`, `gen-negative`, `test-grader`, `grade`, `warm-cache` (placeholder), `apiref` (placeholder), `setup-completion`. Not published.
 - `harness/` — eval infrastructure (Plan 4): Unity batch-mode runner, agent runners (claude-code primary; codex/gemini/jetski stubs), suite orchestration, metrics, reporting. Plan 4 ships `empty-unity6` base-app via LFS; the brawler/deckbuilder skeletons are placeholders that fall back to `empty-unity6`.
@@ -26,6 +27,8 @@ PR CI runs the preflight workflow (`.github/workflows/preflight.yml`): `npm inst
 
 - **Shooter base-app skeleton**: `harness/base_apps/shooter-skeleton/` is not yet created. All 12 shooter design guides currently point at `empty-unity6` as their baseApp. Build out a shooter skeleton (basic FPS player + weapon + enemy) when these guides need genuine project context.
 - **Platformer / soulslike / AI base-app skeletons**: all Plan 7b guides currently point at `empty-unity6`. Build out genre-specific skeletons when guides need real project context.
+- **Tag boost weight (0.15)** — chosen as a starting point. Iterate based on real query patterns; raise if tag matches feel under-weighted, lower if tags overshadow semantic similarity.
+- **Per-guide tag drift** — when adding a new guide, copy the tag list from a sibling guide in the same subgenre as the starting point, then adjust per the cross-cutting patterns the new guide embodies. Add any new tag to `features/tag-taxonomy.md` FIRST (per the convention).
 
 ## See also
 
