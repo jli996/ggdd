@@ -15,6 +15,8 @@ Commands:
   search <query>            Search use cases by query
   list                      List all available use cases
   retrieve <ids>            Retrieve use case(s) by ID(s), comma-separated
+  tags                      List all available tags
+  search-tag <tag>          Filter guides by exact tag match
   install [--choose]        Install the ggdd skill
   uninstall                 Uninstall the ggdd skill
   update                    Update installed ggdd skills
@@ -96,6 +98,18 @@ async function main() {
       }
     }
     if (hasError) process.exit(1);
+  } else if (command === 'tags') {
+    const { TAGS } = await import('../lib/tag-index.gen.ts');
+    console.log(JSON.stringify(TAGS, null, 2));
+  } else if (command === 'search-tag') {
+    if (!arg) {
+      console.error('No tag provided.');
+      process.exit(1);
+    }
+    const { searchByTag } = await import('../lib/search.ts');
+    const results = searchByTag(arg);
+    if (results.length === 0) console.log('[]');
+    else console.log('[' + results.map(r => JSON.stringify(r)).join(',\n') + ']');
   } else if (command === 'install') {
     const tool = process.env.GGDD_SKILLS_SPAWN_OVERRIDE ?? 'npx';
     const installArgs = process.env.GGDD_SKILLS_SPAWN_OVERRIDE
