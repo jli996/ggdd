@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "idle clicker games with multiple resource types and conversion mechanics"
+tags: [casual, clicker-idle, economy, progression]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

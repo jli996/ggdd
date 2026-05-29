@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "endless runner games using chunk-based procedural level generation"
+tags: [casual, endless-runner, procedural-content, replayability, mobile-first]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

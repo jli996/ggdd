@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "merge-2 games with grid-based boards that can fill up"
+tags: [puzzle, casual, merge-2, quality-of-life, accessibility, mobile-first]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "color-sort and liquid-sort puzzle games with multi-level progression"
+tags: [puzzle, casual, color-sort, progression, accessibility, mobile-first]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

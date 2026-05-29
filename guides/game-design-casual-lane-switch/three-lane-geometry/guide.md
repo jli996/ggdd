@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "lane-switch casual mobile games with swipe controls"
+tags: [casual, lane-switch, mobile-first, one-tap, accessibility]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

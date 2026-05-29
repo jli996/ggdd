@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "endless runner games with meta-progression via in-run currency"
+tags: [casual, endless-runner, meta-progression, roguelike-run, mobile-first]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

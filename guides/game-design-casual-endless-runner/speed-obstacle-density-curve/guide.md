@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "endless runner games with time-based difficulty scaling"
+tags: [casual, endless-runner, pacing, mobile-first]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

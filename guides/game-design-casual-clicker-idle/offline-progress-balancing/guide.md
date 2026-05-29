@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "idle and clicker games with persistent offline progression"
+tags: [casual, clicker-idle, offline-progress, mobile-first, economy]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

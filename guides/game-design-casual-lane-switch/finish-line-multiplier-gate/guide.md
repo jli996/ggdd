@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "lane-switch casual mobile games with finish-line reward mechanics"
+tags: [casual, lane-switch, replayability, risk-vs-reward, mobile-first]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

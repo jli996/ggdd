@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "color-sort and liquid-sort puzzle games with bottle mechanics"
+tags: [puzzle, casual, color-sort, mobile-first, accessibility]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

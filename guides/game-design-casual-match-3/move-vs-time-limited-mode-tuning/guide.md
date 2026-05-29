@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "match-3 puzzle games with configurable level objectives"
+tags: [puzzle, casual, match-3, pacing, mobile-first, variety]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "merge-2 games with generator-based item production"
+tags: [puzzle, casual, merge-2, economy, mobile-first, monetization]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6
