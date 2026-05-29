@@ -59,6 +59,29 @@ export async function searchUseCases(
   const tagVectors = loadTagVectors();
   const queryVec = await embedder.embed(query);
 
+  // Tag boost floor: only credit a guide's best tag match when it's genuinely
+  // relevant. Below this floor, the tag is noise.
+  const TAG_BOOST_FLOOR = 0.5;
+
+  // Missing-tag penalty: if the query strongly indicates a specific tag (e.g.
+  // "match 3 game design" → `match-3` at 0.72), guides that DON'T carry that
+  // tag get penalized. Prevents semantic-token spillover from putting unrelated
+  // guides (e.g. MOBA's three-phase-game-arc) in match-3 results.
+  const STRONG_QUERY_TAG_THRESHOLD = 0.55;
+  const MISSING_TAG_PENALTY = 0.12;
+
+  // Identify the single tag most strongly indicated by the query.
+  let bestQueryTagSim = 0;
+  let bestQueryTagIdx = -1;
+  for (let i = 0; i < tagVectors.length; i++) {
+    const sim = dot(queryVec, tagVectors[i]);
+    if (sim > bestQueryTagSim) {
+      bestQueryTagSim = sim;
+      bestQueryTagIdx = i;
+    }
+  }
+  const queryHasStrongTagSignal = bestQueryTagSim >= STRONG_QUERY_TAG_THRESHOLD && bestQueryTagIdx >= 0;
+
   const scored: SearchResult[] = USE_CASES.map(uc => {
     const semanticSim = dot(queryVec, useCaseVectors[uc.embeddingIndex]);
     // Max-over-tags: reward strong tag matches without diluting by tag count.
@@ -68,7 +91,15 @@ export async function searchUseCases(
       const tagSim = dot(queryVec, tagVectors[tagIdx]);
       if (tagSim > bestTagSim) bestTagSim = tagSim;
     }
-    const finalSim = semanticSim + bestTagSim * tagBoostWeight;
+    const effectiveTagBoost = bestTagSim >= TAG_BOOST_FLOOR ? bestTagSim * tagBoostWeight : 0;
+
+    // Penalize guides missing the query's strongly-indicated tag.
+    let penalty = 0;
+    if (queryHasStrongTagSignal && !(uc.tagIndices ?? []).includes(bestQueryTagIdx)) {
+      penalty = MISSING_TAG_PENALTY;
+    }
+
+    const finalSim = semanticSim + effectiveTagBoost - penalty;
     return {
       id: uc.id, category: uc.category, useCase: uc.useCase, description: uc.description,
       similarity: finalSim,
