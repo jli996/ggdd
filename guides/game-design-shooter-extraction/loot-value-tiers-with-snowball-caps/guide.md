@@ -13,6 +13,7 @@ relatedGuides:
   - raid-extract-loop-with-risk-gradient
 appliesTo:
   - "any extraction shooter with persistent gear across raids"
+tags: [shooter, extraction-shooter, rarity-tiers, risk-vs-reward, cap-and-decay]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

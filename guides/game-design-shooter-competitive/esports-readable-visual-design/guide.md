@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any competitive shooter with spectator / esports aspirations"
+tags: [shooter, competitive-shooter, readability, pvp]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

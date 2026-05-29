@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any survival shooter with a persistent server and player-vs-player risk"
+tags: [shooter, survival-shooter, persistent-world, pvp, quality-of-life]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

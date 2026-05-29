@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any extraction shooter with multiple maps or configurable raid timers"
+tags: [shooter, extraction-shooter, pacing, accessibility]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

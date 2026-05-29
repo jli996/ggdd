@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any single-run roguelite or deckbuilder with a fixed-length progression"
+tags: [deckbuilder, pacing, roguelike-run, progression]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any script that loads prefabs, textures, or audio at runtime"
+tags: [unity-engine, modern-api, performance, quality-of-life]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

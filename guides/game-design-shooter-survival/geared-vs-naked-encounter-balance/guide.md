@@ -13,6 +13,7 @@ relatedGuides:
   - full-loot-economy-with-friction
 appliesTo:
   - "any persistent-world shooter where gear disparity between players is large"
+tags: [shooter, survival-shooter, pvp, accessibility, power-curve]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any MonoBehaviour reading per-frame input"
+tags: [unity-engine, modern-api, forgiving-input]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

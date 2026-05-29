@@ -13,6 +13,7 @@ relatedGuides:
   - hit-stop-on-impact
 appliesTo:
   - "any action game where the player gets hit and is briefly stunned"
+tags: [action, action-design, game-feel, combat, accessibility]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

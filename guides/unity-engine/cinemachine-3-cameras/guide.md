@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any Unity 6 project using virtual cameras or camera blending"
+tags: [unity-engine, modern-api, game-feel]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

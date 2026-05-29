@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any round-based competitive shooter with weapon-purchase economy"
+tags: [shooter, competitive-shooter, economy, pvp]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6
