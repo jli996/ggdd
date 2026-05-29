@@ -51,7 +51,7 @@ export interface SearchOptions {
 export async function searchUseCases(
   query: string,
   limit = 10,
-  minSimilarity = 0.30,
+  minSimilarity = 0.50,
   tagBoostWeight = 0.15,
 ): Promise<SearchResult[]> {
   if (USE_CASES.length === 0) return [];
