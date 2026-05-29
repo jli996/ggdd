@@ -13,6 +13,7 @@ relatedGuides:
   - object-pooling-basics
 appliesTo:
   - "MonoBehaviour scripts in hot paths (Update, FixedUpdate, LateUpdate)"
+tags: [unity-performance, performance, gc-free, modern-api]
 gradeMode: static+unity
 unityVersion: "6000.0"
 baseApp: empty-unity6

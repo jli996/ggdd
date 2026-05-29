@@ -23,6 +23,10 @@ useCases:
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6
+tags:
+  - modern-api
+  - performance
+  - unity-engine
 ---
 Body.
 `;
@@ -31,6 +35,7 @@ Body.
   const result = await buildGuides({ guidesDir, outDir });
   assert.equal(result.numUseCases, 2);
   assert.equal(result.vectorDim, 384);
+  assert.equal(result.numTags, 3);
 
   const ucPath = path.join(outDir, 'use-cases.gen.ts');
   const binPath = path.join(outDir, 'embeddings.gen.bin');
@@ -41,12 +46,22 @@ Body.
   assert.match(generated, /id: "demo-guide"/);
   assert.match(generated, /useCase: "test use case one"/);
   assert.match(generated, /useCase: "test use case two"/);
+  assert.match(generated, /tagIndices: \[\d/);
 
   const { numVectors, vectorDim, vectors } = readEmbeddingsBlob(binPath);
   assert.equal(numVectors, 2);
   assert.equal(vectorDim, 384);
   assert.equal(vectors.length, 2);
   assert.equal(vectors[0].length, 384);
+
+  // Tag artifact assertions
+  assert.ok(fs.existsSync(path.join(outDir, 'tag-index.gen.ts')));
+  assert.ok(fs.existsSync(path.join(outDir, 'tag-embeddings.gen.bin')));
+  const tagIdxSrc = fs.readFileSync(path.join(outDir, 'tag-index.gen.ts'), 'utf8');
+  assert.match(tagIdxSrc, /"modern-api":\s*\d+/);
+  const tagBlob = readEmbeddingsBlob(path.join(outDir, 'tag-embeddings.gen.bin'));
+  assert.equal(tagBlob.numVectors, 3);
+  assert.equal(tagBlob.vectorDim, 384);
 
   await fs.promises.rm(tmp, { recursive: true });
 });

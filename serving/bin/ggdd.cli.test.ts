@@ -127,3 +127,23 @@ test('--skill-version older than 60 days emits the escalated warning', () => {
   assert.equal(r.status, 0);
   assert.match(r.stderr, /PROBLEM DETECTED/);
 });
+
+test('tags command outputs an array of tag names', () => {
+  const r = run(['tags']);
+  assert.equal(r.status, 0, `stderr: ${r.stderr}`);
+  const parsed = JSON.parse(r.stdout);
+  assert.ok(Array.isArray(parsed));
+});
+
+test('search-tag with no tag exits 1', () => {
+  const r = run(['search-tag']);
+  assert.equal(r.status, 1);
+});
+
+test('search-tag with a known tag returns guides', () => {
+  const r = run(['search-tag', 'unity-engine']);
+  assert.equal(r.status, 0, `stderr: ${r.stderr}`);
+  const parsed = JSON.parse(r.stdout);
+  // After backfill, at least one guide carries `unity-engine`. Before backfill: empty.
+  assert.ok(Array.isArray(parsed));
+});

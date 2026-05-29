@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any real-time strategy game with unit type diversity"
+tags: [strategy, rts-classic, class-design, pvp, combat]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

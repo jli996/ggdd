@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any class that holds project-wide configuration or shared state"
+tags: [unity-engine, modern-api, quality-of-life]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

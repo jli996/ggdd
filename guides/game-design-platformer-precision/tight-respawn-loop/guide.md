@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any precision platformer where death is expected and frequent"
+tags: [platformer, precision-platformer, instant-restart, forgiving-input, game-feel]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

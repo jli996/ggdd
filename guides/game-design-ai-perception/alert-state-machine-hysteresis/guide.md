@@ -14,6 +14,7 @@ relatedGuides:
   - sound-propagation-attenuated
 appliesTo:
   - "any stealth, horror, or strategy game with multi-tier AI awareness states"
+tags: [ai-perception, state-machine, quality-of-life]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

@@ -13,6 +13,7 @@ relatedGuides:
   - gc-free-update-loop
 appliesTo:
   - "any action game with player-controlled melee/projectile combat"
+tags: [action, action-design, game-feel, combat]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

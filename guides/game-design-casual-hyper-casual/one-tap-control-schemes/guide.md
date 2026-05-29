@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "hyper-casual mobile games targeting one-finger interaction"
+tags: [casual, hyper-casual, one-tap, accessibility, mobile-first]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

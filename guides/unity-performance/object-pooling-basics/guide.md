@@ -13,6 +13,7 @@ relatedGuides:
   - gc-free-update-loop
 appliesTo:
   - "any spawner that creates / destroys objects more than ~10/sec"
+tags: [unity-performance, performance, pool-reuse, modern-api]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

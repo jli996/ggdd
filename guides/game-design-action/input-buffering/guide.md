@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any action / platformer / brawler with attack or movement animations that lock input"
+tags: [action, action-design, forgiving-input, game-feel, instant-restart]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

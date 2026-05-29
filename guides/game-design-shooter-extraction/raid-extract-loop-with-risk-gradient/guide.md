@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any extraction shooter where players raid, fight, and choose when/where to leave"
+tags: [shooter, extraction-shooter, risk-vs-reward, pacing, pvp]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

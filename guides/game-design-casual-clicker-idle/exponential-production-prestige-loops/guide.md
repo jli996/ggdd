@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "clicker and idle games with upgrade tiers and prestige mechanics"
+tags: [casual, clicker-idle, meta-progression, exponential-scaling, economy]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

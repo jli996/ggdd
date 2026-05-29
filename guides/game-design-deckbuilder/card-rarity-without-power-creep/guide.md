@@ -13,6 +13,7 @@ relatedGuides:
   - run-pacing-3-act-structure
 appliesTo:
   - "any deckbuilder with multiple rarity tiers"
+tags: [deckbuilder, rarity-tiers, power-curve]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

@@ -14,6 +14,7 @@ relatedGuides:
   - readable-attack-telegraphs
 appliesTo:
   - "any soulslike or Metroidvania-style game where checkpoints are sparse and world navigation matters"
+tags: [action, soulslike, progression, pacing, quality-of-life]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

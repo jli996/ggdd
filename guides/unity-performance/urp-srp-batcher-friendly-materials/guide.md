@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any script that tints or modifies a per-instance material property at runtime"
+tags: [unity-performance, performance, modern-api, mobile-first]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

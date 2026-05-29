@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "merge-2 games where items combine pairwise to form higher-tier items"
+tags: [puzzle, casual, merge-2, tier-progression, exponential-scaling, economy]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

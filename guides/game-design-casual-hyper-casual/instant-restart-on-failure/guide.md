@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "hyper-casual games requiring frictionless retry on failure"
+tags: [casual, hyper-casual, instant-restart, mobile-first, quality-of-life]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

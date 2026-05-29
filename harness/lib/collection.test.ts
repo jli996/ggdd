@@ -2,9 +2,9 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { collectSuiteTasks } from './collection.ts';
 
-test('collectSuiteTasks returns all 24 with no filter', () => {
+test('collectSuiteTasks returns all 72 with no filter', () => {
   const t = collectSuiteTasks();
-  assert.equal(t.length, 24);
+  assert.equal(t.length, 72);
   assert.ok(t.every(x => x.taskMd.length > 0));
 });
 

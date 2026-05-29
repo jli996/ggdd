@@ -13,6 +13,7 @@ relatedGuides:
   - alert-state-machine-hysteresis
 appliesTo:
   - "any stealth, horror, or AI-driven game where visibility to the player is a core mechanic"
+tags: [ai-perception, state-machine, quality-of-life]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

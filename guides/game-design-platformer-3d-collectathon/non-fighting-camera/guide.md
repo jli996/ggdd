@@ -13,6 +13,7 @@ relatedGuides:
   - collectible-density-clumping
 appliesTo:
   - "any 3D collectathon where the camera is behind the player and the world is explored by orbiting"
+tags: [platformer, 3d-collectathon, game-feel, accessibility]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

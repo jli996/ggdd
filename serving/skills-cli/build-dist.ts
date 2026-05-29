@@ -68,6 +68,8 @@ export async function buildDist(): Promise<void> {
   copyDirRecursive(path.join(SERVING, 'lib', 'tfjs_model_minilm'), path.join(BUILD, 'tfjs_model_minilm'));
   copyFileIfExists(path.join(SERVING, 'lib', 'use-cases.gen.ts'), path.join(BUILD, 'use-cases.gen.ts'));
   copyFileIfExists(path.join(SERVING, 'lib', 'embeddings.gen.bin'), path.join(BUILD, 'embeddings.gen.bin'));
+  copyFileIfExists(path.join(SERVING, 'lib', 'tag-index.gen.ts'), path.join(BUILD, 'tag-index.gen.ts'));
+  copyFileIfExists(path.join(SERVING, 'lib', 'tag-embeddings.gen.bin'), path.join(BUILD, 'tag-embeddings.gen.bin'));
 
   // Copy megaskill + SKILL.md + plugin.json + skill-version.txt.
   copyFileIfExists(path.join(SERVING, 'megaskill', 'megaskill.md'), path.join(BUILD, 'megaskill.md'));

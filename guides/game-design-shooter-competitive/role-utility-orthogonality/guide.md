@@ -13,6 +13,7 @@ relatedGuides:
   - round-based-economy-reset
 appliesTo:
   - "any team-based competitive shooter with class/agent selection"
+tags: [shooter, competitive-shooter, class-design, pvp]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

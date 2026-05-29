@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "match-3 puzzle games with falling tile mechanics"
+tags: [puzzle, casual, match-3, replayability, mobile-first, game-feel]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

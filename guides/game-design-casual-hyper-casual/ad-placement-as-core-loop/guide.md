@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "hyper-casual mobile games monetised primarily through advertising"
+tags: [casual, hyper-casual, monetization, mobile-first]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

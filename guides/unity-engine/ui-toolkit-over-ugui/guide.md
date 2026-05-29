@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any Unity 6 project building new runtime UI (menus, HUDs, editor tools)"
+tags: [unity-engine, modern-api, quality-of-life]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

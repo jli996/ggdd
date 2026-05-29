@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any MOBA or team-based game with gold income and neutral objectives"
+tags: [strategy, moba, economy, cap-and-decay, pvp]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

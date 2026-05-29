@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any Unity 6 multiplayer feature where authoritative server + client prediction matters"
+tags: [unity-engine, modern-api, pvp, coop]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any MOBA or team-based brawler with lane phases and item scaling"
+tags: [strategy, moba, pacing, power-curve, pvp]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

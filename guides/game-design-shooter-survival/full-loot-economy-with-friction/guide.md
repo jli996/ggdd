@@ -13,6 +13,7 @@ relatedGuides:
   - persistent-world-session-join
 appliesTo:
   - "any survival shooter where death drops loot AND players persist gear between sessions"
+tags: [shooter, survival-shooter, economy, cap-and-decay, risk-vs-reward]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

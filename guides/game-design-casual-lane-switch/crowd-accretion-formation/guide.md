@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "lane-switch crowd-runner games with collectible NPC units"
+tags: [casual, lane-switch, power-curve, mobile-first, replayability]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

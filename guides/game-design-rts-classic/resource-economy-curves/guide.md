@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any real-time strategy game with worker-based resource gathering"
+tags: [strategy, rts-classic, economy, progression, pvp]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

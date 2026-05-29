@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "color-sort and liquid-sort puzzle games with procedural level generation"
+tags: [puzzle, casual, color-sort, procedural-content, quality-of-life, mobile-first]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6
