@@ -20,6 +20,66 @@ export interface BuildOptions {
   outDir: string;
 }
 
+/**
+ * Canonical game examples per tag — embedded into the tag's vector so brand-name
+ * queries ("league of legends", "candy crush", "dark souls") resolve to the
+ * correct subgenre tag. Only listed for genre / subgenre / unity tags;
+ * cross-cutting mechanical tags (economy, tier-progression, pacing, …) don't
+ * benefit because they're abstract concepts, not games.
+ */
+const TAG_EXAMPLES: Record<string, string[]> = {
+  // Genre umbrellas
+  shooter: ['Call of Duty', 'Counter-Strike', 'Valorant', 'Apex Legends', 'Battlefield', 'Halo', 'FPS', 'first-person shooter'],
+  platformer: ['Mario', 'Sonic', 'Celeste', 'Hollow Knight', 'Super Meat Boy'],
+  strategy: ['StarCraft', 'Age of Empires', 'Civilization', 'Total War', 'turn based strategy', 'real time strategy'],
+  puzzle: ['Tetris', 'Portal', 'Bejeweled', 'Candy Crush', 'Sudoku', 'puzzle game'],
+  casual: ['mobile game', 'short session', 'free to play'],
+  action: ['God of War', 'Devil May Cry', 'Bayonetta', 'character action'],
+
+  // Shooter subgenres
+  'survival-shooter': ['DayZ', 'Rust', 'ARK', 'Conan Exiles', 'survival shooter'],
+  'extraction-shooter': ['Escape from Tarkov', 'Hunt Showdown', 'The Cycle', 'extraction shooter'],
+  'competitive-shooter': ['Counter-Strike', 'Valorant', 'Overwatch', 'Rainbow Six Siege', 'esports shooter'],
+  'singleplayer-shooter': ['DOOM', 'Half-Life', 'Titanfall', 'BioShock', 'narrative FPS'],
+
+  // Platformer subgenres
+  'precision-platformer': ['Celeste', 'Super Meat Boy', 'The End is Nigh'],
+  'momentum-platformer': ['Sonic', 'Hollow Knight'],
+  '3d-collectathon': ['Mario 64', 'Banjo Kazooie', 'Super Mario Odyssey'],
+
+  // Action subgenres
+  'action-design': ['God of War', 'Devil May Cry', 'Bayonetta', 'character action game'],
+  soulslike: ['Dark Souls', 'Elden Ring', 'Sekiro', 'Bloodborne'],
+
+  // Strategy subgenres
+  'rts-classic': ['StarCraft', 'Age of Empires', 'Warcraft III', 'Command and Conquer'],
+  moba: ['League of Legends', 'Dota 2', 'Smite', 'Heroes of the Storm', 'multiplayer online battle arena'],
+  mmorts: ['Travian', 'Tribal Wars', 'Forge of Empires', 'Lords Mobile', 'massively multiplayer strategy'],
+
+  // Casual puzzle
+  'match-3': ['Candy Crush', 'Bejeweled', 'Royal Match', 'Homescapes', 'tile matching'],
+  'merge-2': ['Merge Mansion', 'Travel Town', 'Merge Dragons', 'tile merging'],
+  'color-sort': ['Water Sort', 'Ball Sort', 'Liquid Sort', 'sorting puzzle'],
+
+  // Casual action / economy
+  'lane-switch': ['Crowd City', 'Run Race 3D', 'Stickman Boost', 'crowd runner'],
+  'clicker-idle': ['Cookie Clicker', 'AdVenture Capitalist', 'NGU Idle', 'idle game', 'incremental game'],
+  'hyper-casual': ['Crossy Road', 'Helix Jump', 'Aquapark', 'Stack', 'snackable game'],
+  'endless-runner': ['Temple Run', 'Subway Surfers', 'auto runner'],
+
+  // Other subgenres
+  deckbuilder: ['Slay the Spire', 'Monster Train', 'Inscryption', 'card game roguelite'],
+  'ai-perception': ['stealth game enemy AI', 'horror creature AI', 'NPC vision and hearing'],
+
+  // Unity
+  'unity-engine': ['Unity Editor API', 'Unity package'],
+  'unity-performance': ['Unity profiling', 'Unity optimization', 'frame rate'],
+
+  // Genre-orthogonal context (light annotations)
+  'mobile-first': ['mobile game', 'iOS Android'],
+  'roguelike-run': ['roguelite', 'Slay the Spire', 'Hades', 'permadeath'],
+};
+
 export async function buildGuides(opts: BuildOptions): Promise<BuildResult> {
   const guidePaths = collectGuidePaths(opts.guidesDir);
   const embedder = new TfjsEmbedder();
@@ -41,10 +101,13 @@ export async function buildGuides(opts: BuildOptions): Promise<BuildResult> {
   sortedTags.forEach((t, i) => { tagIndex[t] = i; });
   const tagVectors: Float32Array[] = [];
   for (const tag of sortedTags) {
-    // Embed the tag's NAME — agents query in natural language, tag names are kebab-case English phrases.
-    // Replace hyphens with spaces so the model treats "tier-progression" as "tier progression."
+    // Embed the tag NAME + canonical game examples (for subgenre/genre tags).
+    // Brand-name queries ("league of legends", "candy crush") need the model to
+    // see those tokens in the tag's embedding to resolve correctly.
     const tagText = tag.replace(/-/g, ' ');
-    tagVectors.push(await embedder.embed(tagText));
+    const examples = TAG_EXAMPLES[tag] ?? [];
+    const enrichedText = examples.length > 0 ? `${tagText} ${examples.join(' ')}` : tagText;
+    tagVectors.push(await embedder.embed(enrichedText));
   }
 
   // Second pass: build use-case entries with tagIndices resolved.
@@ -52,6 +115,21 @@ export async function buildGuides(opts: BuildOptions): Promise<BuildResult> {
   const useCaseVectors: Float32Array[] = [];
   for (const g of parsedGuides) {
     const tagIndices = g.tags.map(t => tagIndex[t]).filter((i): i is number => i !== undefined);
+
+    // Build a per-guide enrichment string from canonical example titles of its
+    // tags. Inject these tokens into the use-case embedding so brand-name
+    // queries ("League of Legends", "Slay the Spire") resolve to guides whose
+    // tags correspond to those brands, without relying solely on the user
+    // writing use-case strings that mention the brands.
+    const enrichmentTokens = new Set<string>();
+    for (const tag of g.tags) {
+      const examples = TAG_EXAMPLES[tag];
+      if (examples) for (const ex of examples) enrichmentTokens.add(ex);
+    }
+    const enrichment = enrichmentTokens.size > 0
+      ? ` Related examples: ${Array.from(enrichmentTokens).join(', ')}.`
+      : '';
+
     for (const useCase of g.useCases) {
       const idx = entries.length;
       entries.push({
@@ -62,7 +140,7 @@ export async function buildGuides(opts: BuildOptions): Promise<BuildResult> {
         embeddingIndex: idx,
         tagIndices,
       });
-      useCaseVectors.push(await embedder.embed(`${useCase}. ${g.description}`));
+      useCaseVectors.push(await embedder.embed(`${useCase}. ${g.description}${enrichment}`));
     }
   }
 

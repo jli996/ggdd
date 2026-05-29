@@ -51,7 +51,7 @@ export interface SearchOptions {
 export async function searchUseCases(
   query: string,
   limit = 10,
-  minSimilarity = 0.50,
+  minSimilarity = 0.45,
   tagBoostWeight = 0.15,
 ): Promise<SearchResult[]> {
   if (USE_CASES.length === 0) return [];
@@ -60,8 +60,10 @@ export async function searchUseCases(
   const queryVec = await embedder.embed(query);
 
   // Tag boost floor: only credit a guide's best tag match when it's genuinely
-  // relevant. Below this floor, the tag is noise.
-  const TAG_BOOST_FLOOR = 0.5;
+  // relevant. Below this floor, the tag is noise. Calibrated so brand-name
+  // queries ("league of legend" → moba tag sim ≈ 0.41) get credit while
+  // semantic spillover (match-3 query → moba tag sim ≈ 0.34) does not.
+  const TAG_BOOST_FLOOR = 0.40;
 
   // Missing-tag penalty: if the query strongly indicates a specific tag (e.g.
   // "match 3 game design" → `match-3` at 0.72), guides that DON'T carry that
