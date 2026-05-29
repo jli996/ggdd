@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any MMORTS or multiplayer strategy game with guild/clan progression systems"
+tags: [strategy, mmorts, coop, progression]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

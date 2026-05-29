@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any singleplayer FPS or action game with progressive weapon unlocks"
+tags: [shooter, singleplayer-shooter, narrative-beat, progression, pacing]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

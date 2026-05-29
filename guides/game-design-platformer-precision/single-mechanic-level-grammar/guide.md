@@ -13,6 +13,7 @@ relatedGuides:
   - tight-respawn-loop
 appliesTo:
   - "any precision platformer with progressive mechanic introduction"
+tags: [platformer, precision-platformer, progression, variety]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

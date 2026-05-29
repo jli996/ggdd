@@ -13,6 +13,7 @@ relatedGuides:
   - combat-puzzle-pacing
 appliesTo:
   - "any singleplayer FPS with a narrative campaign"
+tags: [shooter, singleplayer-shooter, pacing, variety, narrative-beat]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

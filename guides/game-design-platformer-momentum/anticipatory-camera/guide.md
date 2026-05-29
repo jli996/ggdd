@@ -14,6 +14,7 @@ relatedGuides:
   - level-as-race-track
 appliesTo:
   - "any fast-moving platformer where speed exceeds what a centered camera can preview"
+tags: [platformer, momentum-platformer, game-feel, readability]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

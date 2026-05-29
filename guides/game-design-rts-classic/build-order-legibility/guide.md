@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any real-time strategy game with scouting and tech-tree mechanics"
+tags: [strategy, rts-classic, readability, pvp]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

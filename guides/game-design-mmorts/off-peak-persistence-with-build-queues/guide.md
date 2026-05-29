@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any MMORTS, mobile strategy, or idle-adjacent game with async offline progression"
+tags: [strategy, mmorts, persistent-world, mobile-first, offline-progress]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

@@ -13,6 +13,7 @@ relatedGuides:
   - momentum-preservation-transitions
 appliesTo:
   - "any momentum-based platformer where speed and routing are a skill expression"
+tags: [platformer, momentum-platformer, replayability, variety]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

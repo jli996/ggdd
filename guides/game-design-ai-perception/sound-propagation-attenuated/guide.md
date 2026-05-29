@@ -14,6 +14,7 @@ relatedGuides:
   - cone-of-vision-falloff
 appliesTo:
   - "any stealth, horror, or tactical game where AI responds to sound independently of line of sight"
+tags: [ai-perception, state-machine, quality-of-life]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

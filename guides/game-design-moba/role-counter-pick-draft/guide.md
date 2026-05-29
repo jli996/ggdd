@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any MOBA with champion selection and team composition mechanics"
+tags: [strategy, moba, class-design, pvp]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

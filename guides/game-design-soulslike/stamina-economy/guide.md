@@ -13,6 +13,7 @@ relatedGuides:
   - readable-attack-telegraphs
 appliesTo:
   - "any soulslike, action RPG, or melee-heavy game where resource management during combat matters"
+tags: [action, soulslike, stamina-economy, risk-vs-reward, combat]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

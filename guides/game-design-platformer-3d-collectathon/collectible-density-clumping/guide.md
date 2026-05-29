@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any 3D collectathon where discovering and collecting items is a primary gameplay loop"
+tags: [platformer, 3d-collectathon, pacing, replayability]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

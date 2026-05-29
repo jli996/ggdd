@@ -13,6 +13,7 @@ relatedGuides:
   - tight-respawn-loop
 appliesTo:
   - "any platformer where the player jumps with intent and timing"
+tags: [platformer, precision-platformer, forgiving-input, game-feel, accessibility]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

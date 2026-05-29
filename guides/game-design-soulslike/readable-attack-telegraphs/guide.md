@@ -13,6 +13,7 @@ relatedGuides:
   - stamina-economy
 appliesTo:
   - "any soulslike, character action game, or melee-focused game with deliberate enemy attack patterns"
+tags: [action, soulslike, telegraph-tells, combat, readability]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

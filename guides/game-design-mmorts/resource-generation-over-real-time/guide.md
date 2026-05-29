@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any MMORTS, idle game, or mobile strategy with time-based resource generation"
+tags: [strategy, mmorts, economy, offline-progress, cap-and-decay]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

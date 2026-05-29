@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any momentum-based platformer where speed is a core resource"
+tags: [platformer, momentum-platformer, game-feel]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

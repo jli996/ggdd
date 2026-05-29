@@ -12,6 +12,7 @@ useCases:
 relatedGuides: []
 appliesTo:
   - "any singleplayer FPS or action game with combat-puzzle encounters"
+tags: [shooter, singleplayer-shooter, pacing, combat, economy]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6

@@ -14,6 +14,7 @@ relatedGuides:
   - non-fighting-camera
 appliesTo:
   - "any 3D collectathon with a central hub and distinct sub-worlds accessible via the hub"
+tags: [platformer, 3d-collectathon, progression, meta-progression]
 gradeMode: static
 unityVersion: "6000.0"
 baseApp: empty-unity6
