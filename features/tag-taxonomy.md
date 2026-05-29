@@ -140,7 +140,7 @@ Game generates progress while the player isn't playing. Idle clickers, MMORTS bu
 
 ---
 
-## 5. Mechanics (4)
+## 5. Mechanics (5)
 
 ### `class-design`
 Multi-class / multi-role / multi-character system design: orthogonality, counters, draft, balance across roles.
@@ -148,7 +148,11 @@ Multi-class / multi-role / multi-character system design: orthogonality, counter
 
 ### `state-machine`
 Discrete-state systems with transitions, often gated by hysteresis or cooldowns. AI alert states, animation states, game-phase machines.
-**Cross-refs:** `combat`.
+**Cross-refs:** `ai-perception`, `combat`.
+
+### `ai-perception`
+NPC / AI-controller perception design: vision cones, alert states, sound propagation, investigation behavior. Cross-cutting — applies to stealth, horror, action-game enemy AI, RTS unit AI, RPG companions, sim citizens, anywhere a controlled non-player entity decides what it can see/hear.
+**Cross-refs:** `state-machine`, `combat`.
 
 ### `rarity-tiers`
 Tiered item/loot/card design where rarity gates breadth (or power, deliberately or not).
@@ -224,9 +228,9 @@ Umbrellas: action-design (v1 action category) + soulslike (since soulslike is ac
 
 ---
 
-## 9. Subgenre (23)
+## 9. Subgenre (22)
 
-One subgenre tag per existing category. Apply to every guide in that category.
+One subgenre tag per existing category, with one exception: `ai-perception` lives in Group 5 (Mechanics) instead because it's cross-cutting (any genre with NPCs can use it).
 
 ### Action / soulslike
 - `action-design` — guides under `game-design-action` (3 guides)
@@ -234,9 +238,6 @@ One subgenre tag per existing category. Apply to every guide in that category.
 
 ### Deckbuilder
 - `deckbuilder` — guides under `game-design-deckbuilder` (3 guides)
-
-### AI perception (cross-cutting; treat as subgenre)
-- `ai-perception` — guides under `game-design-ai-perception` (3 guides)
 
 ### Shooter (4)
 - `survival-shooter`
@@ -283,11 +284,11 @@ One subgenre tag per existing category. Apply to every guide in that category.
 | 2 Game Feel & Control | 6 | game-feel, forgiving-input, combat, … |
 | 3 Player Experience | 8 | risk-vs-reward, readability, pacing, … |
 | 4 Multiplayer / Persistence | 4 | pvp, coop, persistent-world, offline-progress |
-| 5 Mechanics | 4 | class-design, state-machine, rarity-tiers, procedural-content |
+| 5 Mechanics | 5 | class-design, state-machine, ai-perception, rarity-tiers, procedural-content |
 | 6 Genre / Platform Context | 4 | mobile-first, one-tap, monetization, roguelike-run |
 | 7 Unity Engine Tech | 4 | modern-api, performance, gc-free, pool-reuse |
 | 8 Genre Umbrella | 6 | shooter, platformer, strategy, puzzle, casual, action |
-| 9 Subgenre | 23 | survival-shooter, match-3, moba, soulslike, … |
+| 9 Subgenre | 22 | survival-shooter, match-3, moba, soulslike, … |
 
 The full 72-guide assignment preview is in `tag-assignments-preview.md`.
 
