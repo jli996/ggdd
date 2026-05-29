@@ -1,9 +1,9 @@
 import * as os from 'node:os';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { describe, it, before, after } from 'node:test';
+import { describe, it, test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { readEmbeddingsBlob, writeEmbeddingsBlob } from './corpus-io.ts';
+import { type UseCaseEntry, readEmbeddingsBlob, writeEmbeddingsBlob } from './corpus-io.ts';
 
 describe('corpus-io round-trip', () => {
   let tmpDir: string;
@@ -52,4 +52,11 @@ describe('corpus-io round-trip', () => {
     assert.equal(result.numVectors, 2);
     assert.equal(result.vectorDim, 3);
   });
+});
+
+test('UseCaseEntry includes tagIndices field', () => {
+  const entry: UseCaseEntry = {
+    id: 'x', category: 'unity-engine', description: 'd', useCase: 'u', embeddingIndex: 0, tagIndices: [3, 7],
+  };
+  assert.deepEqual(entry.tagIndices, [3, 7]);
 });
